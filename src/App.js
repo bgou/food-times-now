@@ -1,16 +1,18 @@
-import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import MenuItem from './menu/MenuItem'
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Helmet } from "react-helmet";
+import MenuItem from './menu/MenuItem';
+import data from './mock/data';
 
-import data from './mock/data'
+
 
 const styles = theme => ({
   '@global': {
@@ -101,6 +103,9 @@ function Pricing(props) {
       </AppBar>
       <main className={classes.layout}>
         {/* Hero unit */}
+        <Helmet>
+          <title>{data.title}</title>
+        </Helmet>
         <div className={classes.heroContent}>
           <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
             {data.title}
