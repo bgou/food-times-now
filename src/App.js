@@ -117,7 +117,7 @@ function Pricing(props) {
         <div className={classNames(classes.layout, classes.cardGrid)}>
           <Grid container spacing={40}>
             {data.menuOptions.map((card,idx) => (
-              <Grid item key={idx} sm={6} md={4} lg={3}>
+              <Grid item key={idx} xs={12} sm={6} md={4} lg={3}>
                 <MenuItem data={card} />
               </Grid>
             ))}
