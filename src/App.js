@@ -3,16 +3,12 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import StarIcon from '@material-ui/icons/StarBorder';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import MenuItem from './menu/MenuItem'
 
 import data from './mock/data'
 
@@ -57,17 +53,7 @@ const styles = theme => ({
       paddingBottom: theme.spacing.unit * 2,
     },
   },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
+  
   footer: {
     marginTop: theme.spacing.unit * 8,
     borderTop: `1px solid ${theme.palette.divider}`,
@@ -75,40 +61,6 @@ const styles = theme => ({
   },
 });
 
-const tiers = [
-  {
-    title: 'Free',
-    price: '0',
-    description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
-    buttonText: 'Sign up for free',
-    buttonVariant: 'outlined',
-  },
-  {
-    title: 'Pro',
-    subheader: 'Most popular',
-    price: '15',
-    description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support',
-    ],
-    buttonText: 'Get started',
-    buttonVariant: 'contained',
-  },
-  {
-    title: 'Enterprise',
-    price: '30',
-    description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support',
-    ],
-    buttonText: 'Contact us',
-    buttonVariant: 'outlined',
-  },
-];
 const footers = [
   {
     title: 'Company',
@@ -166,29 +118,7 @@ function Pricing(props) {
           <Grid container spacing={40}>
             {data.menuOptions.map((card,idx) => (
               <Grid item key={idx} sm={6} md={4} lg={3}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={card.imgSrc}
-                    title={card.name}
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {card.name}
-                    </Typography>
-                    <Typography>
-                      {card.price}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      Order
-                    </Button>
-                    <Button size="small" color="primary">
-                      Clear
-                    </Button>
-                  </CardActions>
-                </Card>
+                <MenuItem data={card} />
               </Grid>
             ))}
           </Grid>
