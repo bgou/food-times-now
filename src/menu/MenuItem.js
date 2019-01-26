@@ -48,7 +48,7 @@ class MenuItem extends Component {
           title={data.name}
         />
         <CardContent className={classes.cardContent}>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h6" component="h2">
             {data.name}
           </Typography>
         </CardContent>
