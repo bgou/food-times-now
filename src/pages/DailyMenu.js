@@ -37,12 +37,12 @@ const DailyMenu = ({classes}) => {
       <title>{data.title}</title>
     </Helmet>
     <div className={classes.heroContent}>
-      <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
+      <Typography component="h1" variant="h5" align="center" color="textPrimary" gutterBottom>
         {data.title}
       </Typography>
       {
         data.highlight.split('\n').map((line, i)=>(
-          <Typography key={i} variant="h5" align="center" color="textSecondary" component="p">
+          <Typography key={i} variant="h6" align="center" color="textPrimary" component="p">
             {line}
           </Typography>
         )) 
