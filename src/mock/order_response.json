@@ -1,0 +1,484 @@
+[
+  {
+    "title": "小食代 2019-01-21 菜单",
+    "menu_image": "",
+    "subtitle": "❤️01/22周二我们提供4种好吃的便当\n🍱粉蒸牛肉便当\n🍱金针菇番茄鱼便当\n🍱回锅肉便当便当\n🍱黄焖鸡便当\n🍛配菜：地三鲜+时令蔬菜+卤蛋\n🔥❤️🍰冉记甜品+CoCo奶茶☕️❤️🔥\n",
+    "menu_id": "7a194831-37ce-4a3b-a158-47b34d2d9c94",
+    "menu_date": "2019-01-28",
+    "expire_time": "2019-01-29",
+    "menu_items": [
+      {
+        "name": "粉蒸牛肉",
+        "price": 12.65,
+        "status": "SOLD_OUT|AVAILABLE|LIMITED",
+        "limit_count": "10",
+        "entree_image": "https://www.jotform.com/uploads/foodtimes/form_files/49C30733-3CE9-4462-9FC3-319EBB5099B0.5c462080bd0690.19942212.jpeg",
+        "options": [
+          {
+            "category": "主食",
+            "max_choices": 1,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "白饭",
+                "price": 0
+              },
+              {
+                "name": "糙饭",
+                "price": 1
+              },
+              {
+                "name": "白饭加量",
+                "price": 1
+              }
+            ]
+          },
+          {
+            "category": "加菜",
+            "max_choices": 2,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "无",
+                "price": 0
+              },
+              {
+                "name": "粉蒸牛肉",
+                "price": 4
+              },
+              {
+                "name": "梅菜扣肉",
+                "price": 4
+              },
+              {
+                "name": "金针菇番茄鱼",
+                "price": 4.5
+              },
+              {
+                "name": "回锅肉",
+                "price": 4.5
+              },
+              {
+                "name": "黄焖鸡",
+                "price": 4.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "粉蒸牛肉糙米便当",
+        "price": 12.65,
+        "status": "SOLD_OUT|AVAILABLE|LIMITED",
+        "limit_count": "10",
+        "entree_image": "https://www.jotform.com/uploads/foodtimes/form_files/49C30733-3CE9-4462-9FC3-319EBB5099B0.5c462080bd0690.19942212.jpeg",
+        "options": [
+          {
+            "category": "主食",
+            "max_choices": 1,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "白饭",
+                "price": 0
+              },
+              {
+                "name": "糙饭",
+                "price": 1
+              },
+              {
+                "name": "白饭加量",
+                "price": 1
+              }
+            ]
+          },
+          {
+            "category": "加菜",
+            "max_choices": 2,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "无",
+                "price": 0
+              },
+              {
+                "name": "粉蒸牛肉",
+                "price": 4
+              },
+              {
+                "name": "梅菜扣肉",
+                "price": 4
+              },
+              {
+                "name": "金针菇番茄鱼",
+                "price": 4.5
+              },
+              {
+                "name": "回锅肉",
+                "price": 4.5
+              },
+              {
+                "name": "黄焖鸡",
+                "price": 4.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "金针菇番茄鱼便当",
+        "price": 12.65,
+        "status": "SOLD_OUT|AVAILABLE|LIMITED",
+        "limit_count": "10",
+        "entree_image": "https://www.jotform.com/uploads/foodtimes/form_files/49C30733-3CE9-4462-9FC3-319EBB5099B0.5c462080bd0690.19942212.jpeg",
+        "options": [
+          {
+            "category": "主食",
+            "max_choices": 1,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "白饭",
+                "price": 0
+              },
+              {
+                "name": "糙饭",
+                "price": 1
+              },
+              {
+                "name": "白饭加量",
+                "price": 1
+              }
+            ]
+          },
+          {
+            "category": "加菜",
+            "max_choices": 2,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "无",
+                "price": 0
+              },
+              {
+                "name": "粉蒸牛肉",
+                "price": 4
+              },
+              {
+                "name": "梅菜扣肉",
+                "price": 4
+              },
+              {
+                "name": "金针菇番茄鱼",
+                "price": 4.5
+              },
+              {
+                "name": "回锅肉",
+                "price": 4.5
+              },
+              {
+                "name": "黄焖鸡",
+                "price": 4.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "金针菇番茄鱼糙米",
+        "price": 12.65,
+        "status": "SOLD_OUT|AVAILABLE|LIMITED",
+        "limit_count": "10",
+        "entree_image": "https://www.jotform.com/uploads/foodtimes/form_files/49C30733-3CE9-4462-9FC3-319EBB5099B0.5c462080bd0690.19942212.jpeg",
+        "options": [
+          {
+            "category": "主食",
+            "max_choices": 1,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "白饭",
+                "price": 0
+              },
+              {
+                "name": "糙饭",
+                "price": 1
+              },
+              {
+                "name": "白饭加量",
+                "price": 1
+              }
+            ]
+          },
+          {
+            "category": "加菜",
+            "max_choices": 2,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "无",
+                "price": 0
+              },
+              {
+                "name": "粉蒸牛肉",
+                "price": 4
+              },
+              {
+                "name": "梅菜扣肉",
+                "price": 4
+              },
+              {
+                "name": "金针菇番茄鱼",
+                "price": 4.5
+              },
+              {
+                "name": "回锅肉",
+                "price": 4.5
+              },
+              {
+                "name": "黄焖鸡",
+                "price": 4.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "回锅肉",
+        "price": 12.65,
+        "status": "SOLD_OUT|AVAILABLE|LIMITED",
+        "limit_count": "10",
+        "entree_image": "https://www.jotform.com/uploads/foodtimes/form_files/49C30733-3CE9-4462-9FC3-319EBB5099B0.5c462080bd0690.19942212.jpeg",
+        "options": [
+          {
+            "category": "主食",
+            "max_choices": 1,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "白饭",
+                "price": 0
+              },
+              {
+                "name": "糙饭",
+                "price": 1
+              },
+              {
+                "name": "白饭加量",
+                "price": 1
+              }
+            ]
+          },
+          {
+            "category": "加菜",
+            "max_choices": 2,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "无",
+                "price": 0
+              },
+              {
+                "name": "粉蒸牛肉",
+                "price": 4
+              },
+              {
+                "name": "梅菜扣肉",
+                "price": 4
+              },
+              {
+                "name": "金针菇番茄鱼",
+                "price": 4.5
+              },
+              {
+                "name": "回锅肉",
+                "price": 4.5
+              },
+              {
+                "name": "黄焖鸡",
+                "price": 4.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "回锅肉便当糙米",
+        "price": 12.65,
+        "status": "SOLD_OUT|AVAILABLE|LIMITED",
+        "limit_count": "10",
+        "entree_image": "https://www.jotform.com/uploads/foodtimes/form_files/49C30733-3CE9-4462-9FC3-319EBB5099B0.5c462080bd0690.19942212.jpeg",
+        "options": [
+          {
+            "category": "主食",
+            "max_choices": 1,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "白饭",
+                "price": 0
+              },
+              {
+                "name": "糙饭",
+                "price": 1
+              },
+              {
+                "name": "白饭加量",
+                "price": 1
+              }
+            ]
+          },
+          {
+            "category": "加菜",
+            "max_choices": 2,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "无",
+                "price": 0
+              },
+              {
+                "name": "粉蒸牛肉",
+                "price": 4
+              },
+              {
+                "name": "梅菜扣肉",
+                "price": 4
+              },
+              {
+                "name": "金针菇番茄鱼",
+                "price": 4.5
+              },
+              {
+                "name": "回锅肉",
+                "price": 4.5
+              },
+              {
+                "name": "黄焖鸡",
+                "price": 4.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "黄焖鸡糙米",
+        "price": 12.65,
+        "status": "SOLD_OUT|AVAILABLE|LIMITED",
+        "limit_count": "10",
+        "entree_image": "https://www.jotform.com/uploads/foodtimes/form_files/49C30733-3CE9-4462-9FC3-319EBB5099B0.5c462080bd0690.19942212.jpeg",
+        "options": [
+          {
+            "category": "主食",
+            "max_choices": 1,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "白饭",
+                "price": 0
+              },
+              {
+                "name": "糙饭",
+                "price": 1
+              },
+              {
+                "name": "白饭加量",
+                "price": 1
+              }
+            ]
+          },
+          {
+            "category": "加菜",
+            "max_choices": 2,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "无",
+                "price": 0
+              },
+              {
+                "name": "粉蒸牛肉",
+                "price": 4
+              },
+              {
+                "name": "梅菜扣肉",
+                "price": 4
+              },
+              {
+                "name": "金针菇番茄鱼",
+                "price": 4.5
+              },
+              {
+                "name": "回锅肉",
+                "price": 4.5
+              },
+              {
+                "name": "黄焖鸡",
+                "price": 4.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "黄焖鸡",
+        "price": 12.65,
+        "status": "SOLD_OUT|AVAILABLE|LIMITED",
+        "limit_count": "10",
+        "entree_image": "https://www.jotform.com/uploads/foodtimes/form_files/49C30733-3CE9-4462-9FC3-319EBB5099B0.5c462080bd0690.19942212.jpeg",
+        "options": [
+          {
+            "category": "主食",
+            "max_choices": 1,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "白饭",
+                "price": 0
+              },
+              {
+                "name": "糙饭",
+                "price": 1
+              },
+              {
+                "name": "白饭加量",
+                "price": 1
+              }
+            ]
+          },
+          {
+            "category": "加菜",
+            "max_choices": 2,
+            "default_selection": 0,
+            "choices": [
+              {
+                "name": "无",
+                "price": 0
+              },
+              {
+                "name": "粉蒸牛肉",
+                "price": 4
+              },
+              {
+                "name": "梅菜扣肉",
+                "price": 4
+              },
+              {
+                "name": "金针菇番茄鱼",
+                "price": 4.5
+              },
+              {
+                "name": "回锅肉",
+                "price": 4.5
+              },
+              {
+                "name": "黄焖鸡",
+                "price": 4.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

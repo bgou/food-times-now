@@ -33,6 +33,10 @@ const styles = theme => ({
   }
 });
 
+const Price = ({ price }) => {
+  return `$${price.toFixed(2)}`;
+};
+
 class MenuItem extends Component {
   static propTypes = {
     data: PropTypes.object
@@ -44,7 +48,7 @@ class MenuItem extends Component {
       <Card className={classes.card}>
         <CardMedia
           className={classes.cardMedia}
-          image={data.imgSrc}
+          image={data.entree_image}
           title={data.name}
         />
         <CardContent className={classes.cardContent}>
@@ -59,23 +63,24 @@ class MenuItem extends Component {
               color="primary"
               className={classes.optionButton}
             >
-              来一份 {data.price}
+              来一份 <Price price={data.price} />
             </Button>
             {data.options &&
               data.options.map((option, idx) => (
-                <Button
-                  key={idx}
-                  size="medium"
-                  color="primary"
-                  className={classes.optionButton}
-                >
-                  {option.name} {option.price}
-                </Button>
+                <div key={idx}>
+                  {option.choices.map((choice, c_idx)=>(
+                  <Button
+                    key={c_idx}
+                    size="medium"
+                    color="primary"
+                    className={classes.optionButton}
+                  >
+                    +{choice.name} <Price price={choice.price} />
+                  </Button>
+                  ))}
+                </div>
               ))}
           </div>
-          {/* <Button size="medium" color="primary">
-            Clear
-          </Button> */}
         </CardActions>
       </Card>
     );

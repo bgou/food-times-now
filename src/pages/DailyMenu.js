@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from "react-helmet";
 import MenuItem from '../menu/MenuItem';
-import data from '../mock/data';
+import order_response from '../mock/order_response';
 
 const styles = theme => ({
   layout: {
@@ -31,6 +31,7 @@ const styles = theme => ({
 
 
 const DailyMenu = ({classes}) => {
+  const data = order_response[0]
   return (<main className={classes.layout}>
     {/* Hero unit */}
     <Helmet>
@@ -41,7 +42,7 @@ const DailyMenu = ({classes}) => {
         {data.title}
       </Typography>
       {
-        data.highlight.split('\n').map((line, i)=>(
+        data.subtitle.split('\n').map((line, i)=>(
           <Typography key={i} variant="h6" align="center" color="textPrimary" component="p">
             {line}
           </Typography>
@@ -51,9 +52,9 @@ const DailyMenu = ({classes}) => {
     {/* End hero unit */}
     <div className={classNames(classes.layout, classes.cardGrid)}>
       <Grid container spacing={40}>
-        {data.menuOptions.map((card,idx) => (
+        {data.menu_items.map((menu_item,idx) => (
           <Grid item key={idx} xs={12} sm={6} md={4} lg={3}>
-            <MenuItem data={card} />
+            <MenuItem data={menu_item} />
           </Grid>
         ))}
       </Grid>
