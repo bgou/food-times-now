@@ -1,15 +1,15 @@
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
+import Collapse from "@material-ui/core/Collapse";
+import IconButton from "@material-ui/core/IconButton";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import classnames from 'classnames';
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import classnames from "classnames";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import OrderPanel from './OrderPanel';
+import OrderPanel from "./OrderPanel";
 
 const styles = theme => ({
   "@global": {
@@ -38,15 +38,15 @@ const styles = theme => ({
     margin: theme.spacing.unit
   },
   expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
-  },
+    transform: "rotate(180deg)"
+  }
 });
 
 const Price = ({ price }) => {
@@ -55,11 +55,11 @@ const Price = ({ price }) => {
 
 class MenuItem extends Component {
   constructor(props) {
-    super(props)
-    this.state={
+    super(props);
+    this.state = {
       expanded: false
-    }
-    this.handleExpandClick = this.handleExpandClick.bind(this)
+    };
+    this.handleExpandClick = this.handleExpandClick.bind(this);
   }
 
   static propTypes = {
@@ -67,14 +67,14 @@ class MenuItem extends Component {
   };
 
   handleExpandClick() {
-    this.setState({expanded: !this.state.expanded})
+    this.setState({ expanded: !this.state.expanded });
   }
 
   render() {
     const { classes, data } = this.props;
 
-    const {expanded} = this.state
-    
+    const { expanded } = this.state;
+
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -85,25 +85,20 @@ class MenuItem extends Component {
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h6">
             {data.name}
-          </Typography><IconButton
+          </Typography>
+          <IconButton
             className={classnames(classes.expand, {
-              [classes.expandOpen]: expanded,
+              [classes.expandOpen]: expanded
             })}
-            onClick={e=> this.handleExpandClick()}
+            onClick={e => this.handleExpandClick()}
             aria-expanded={expanded}
             aria-label="Show more"
           >
             <ExpandMoreIcon />
           </IconButton>
         </CardContent>
-        {/* <CardActions>
-          
-        </CardActions> */}
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
           <OrderPanel menuItem={data} />
-
-        </CardContent>
         </Collapse>
       </Card>
     );
