@@ -50,6 +50,7 @@ const DailyMenu = ({classes}) => {
       }
     </div>
     {/* End hero unit */}
+    
     <div className={classNames(classes.layout, classes.cardGrid)}>
       <Grid container spacing={40}>
         {data.menu_items.map((menu_item,idx) => (

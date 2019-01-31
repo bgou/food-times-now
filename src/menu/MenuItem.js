@@ -2,11 +2,18 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
+import Chip from "@material-ui/core/Chip";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import FaceIcon from "@material-ui/icons/Face";
+import DoneIcon from "@material-ui/icons/Done";
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const styles = theme => ({
   "@global": {
@@ -30,6 +37,9 @@ const styles = theme => ({
   },
   optionButton: {
     marginRight: "8px"
+  },
+  chipWrapper: {
+    margin: theme.spacing.unit
   }
 });
 
@@ -44,6 +54,19 @@ class MenuItem extends Component {
 
   render() {
     const { classes, data } = this.props;
+
+    const config = {
+      color: "default",
+      onDelete: "none",
+      avatar: "none",
+      icon: "none",
+      variant: "default"
+    };
+    const { color, onDelete, avatar, icon, variant } = config;
+
+    const handleDelete = e => {
+      alert("delete clicked");
+    };
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -67,18 +90,25 @@ class MenuItem extends Component {
             </Button>
             {data.options &&
               data.options.map((option, idx) => (
-                <div key={idx}>
-                  {option.choices.map((choice, c_idx)=>(
-                  <Button
-                    key={c_idx}
-                    size="medium"
-                    color="primary"
-                    className={classes.optionButton}
-                  >
-                    +{choice.name} <Price price={choice.price} />
-                  </Button>
+                <Grid container xs={12} key={idx}>
+                  {option.choices.map((choice, c_idx) => (
+                    <Grid item className={classes.chipWrapper} key={c_idx}>
+                      <FormControl component="fieldset">
+                        <FormLabel>avatar</FormLabel>
+                        <Chip
+                          label={`${choice.name} $${choice.price.toFixed(2)}`}
+                          key={c_idx}
+                          color={color}
+                          // deleteIcon={"default"}
+                          onDelete={handleDelete}
+                          // avatar={avatarToPlayground}
+                          // icon={iconToPlayground}
+                          variant={variant}
+                        />
+                      </FormControl>
+                    </Grid>
                   ))}
-                </div>
+                </Grid>
               ))}
           </div>
         </CardActions>

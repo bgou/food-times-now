@@ -81,6 +81,7 @@ const generate = () => {
     if (old_menu.name) {
       console.log(old_menu.name)
       menu_item.name = old_menu.name
+      menu_item.entree_image = old_menu.imgSrc
       return menu_item
     }
     return null
