@@ -27,8 +27,10 @@ const styles = theme => ({
     paddingTop: "56.25%" // 16:9
   },
   cardContent: {
+    display: "flex",
     flexGrow: 1,
-    justifyContent: "space-between"
+    justifyContent: "flex-start",
+    alignItems: "center"
   },
   optionButton: {
     marginRight: "8px"
@@ -38,7 +40,6 @@ const styles = theme => ({
   },
   expand: {
     transform: "rotate(0deg)",
-    marginLeft: "auto",
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest
     })
@@ -81,7 +82,7 @@ class MenuItem extends Component {
           title={data.name}
         />
         <CardContent className={classes.cardContent}>
-          <Typography inline gutterBottom variant="h6" component="span">
+          <Typography inline variant="h6" component="span">
             {data.name}
           </Typography>
           <IconButton
