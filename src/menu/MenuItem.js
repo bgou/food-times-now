@@ -14,6 +14,7 @@ import DoneIcon from "@material-ui/icons/Done";
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import OrderPanel from './OrderPanel'
 
 const styles = theme => ({
   "@global": {
@@ -64,9 +65,6 @@ class MenuItem extends Component {
     };
     const { color, onDelete, avatar, icon, variant } = config;
 
-    const handleDelete = e => {
-      alert("delete clicked");
-    };
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -75,12 +73,13 @@ class MenuItem extends Component {
           title={data.name}
         />
         <CardContent className={classes.cardContent}>
-          <Typography gutterBottom variant="h6" component="h2">
+          <Typography gutterBottom variant="h6">
             {data.name}
           </Typography>
         </CardContent>
         <CardActions>
-          <div className={classes.optionsGroup}>
+          <OrderPanel menuItem={data} />
+          {/* <div className={classes.optionsGroup}>
             <Button
               size="medium"
               color="primary"
@@ -90,19 +89,16 @@ class MenuItem extends Component {
             </Button>
             {data.options &&
               data.options.map((option, idx) => (
-                <Grid container xs={12} key={idx}>
+                <Grid container key={idx}>
                   {option.choices.map((choice, c_idx) => (
-                    <Grid item className={classes.chipWrapper} key={c_idx}>
+                    <Grid item xs={12} className={classes.chipWrapper} key={c_idx}>
                       <FormControl component="fieldset">
                         <FormLabel>avatar</FormLabel>
                         <Chip
                           label={`${choice.name} $${choice.price.toFixed(2)}`}
                           key={c_idx}
                           color={color}
-                          // deleteIcon={"default"}
-                          onDelete={handleDelete}
-                          // avatar={avatarToPlayground}
-                          // icon={iconToPlayground}
+                          // onDelete={e=>handleDelete(data, choice)}
                           variant={variant}
                         />
                       </FormControl>
@@ -110,7 +106,7 @@ class MenuItem extends Component {
                   ))}
                 </Grid>
               ))}
-          </div>
+          </div> */}
         </CardActions>
       </Card>
     );

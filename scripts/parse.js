@@ -1,6 +1,7 @@
 const data = require("../src/mock/data");
 const fs = require("fs");
 const clonedeep = require('lodash/clonedeep')
+const uuidv4 = require('uuid/v4');
 
 const template_lunch_menu = {
   title: "小食代 2019-01-21 菜单",
@@ -74,7 +75,7 @@ const template_lunch_menu = {
   ]
 };
 
-const generate = () => {
+function generate() {
   const lunch_menu = clonedeep(template_lunch_menu)
   lunch_menu.menu_items = data.menuOptions.map(old_menu => {
     const menu_item = clonedeep(template_lunch_menu.menu_items[0])
@@ -82,6 +83,8 @@ const generate = () => {
       console.log(old_menu.name)
       menu_item.name = old_menu.name
       menu_item.entree_image = old_menu.imgSrc
+      menu_item.id=uuidv4()
+      console.log(menu_item.id)
       return menu_item
     }
     return null
