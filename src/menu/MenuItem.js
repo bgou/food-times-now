@@ -3,6 +3,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
+import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -26,10 +27,8 @@ const styles = theme => ({
     paddingTop: "56.25%" // 16:9
   },
   cardContent: {
-    flexGrow: 1
-  },
-  optionsGroup: {
-    // flexGrow: 1
+    flexGrow: 1,
+    justifyContent: "space-between"
   },
   optionButton: {
     marginRight: "8px"
@@ -72,7 +71,6 @@ class MenuItem extends Component {
 
   render() {
     const { classes, data } = this.props;
-
     const { expanded } = this.state;
 
     return (
@@ -83,7 +81,7 @@ class MenuItem extends Component {
           title={data.name}
         />
         <CardContent className={classes.cardContent}>
-          <Typography gutterBottom variant="h6">
+          <Typography inline gutterBottom variant="h6" component="span">
             {data.name}
           </Typography>
           <IconButton
