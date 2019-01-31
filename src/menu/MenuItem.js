@@ -29,8 +29,7 @@ const styles = theme => ({
   cardContent: {
     display: "flex",
     flexGrow: 1,
-    justifyContent: "flex-start",
-    alignItems: "center"
+    justifyContent: "flex-start"
   },
   optionButton: {
     marginRight: "8px"
@@ -82,19 +81,23 @@ class MenuItem extends Component {
           title={data.name}
         />
         <CardContent className={classes.cardContent}>
-          <Typography inline variant="h6" component="span">
-            {data.name}
-          </Typography>
-          <IconButton
-            className={classnames(classes.expand, {
-              [classes.expandOpen]: expanded
-            })}
-            onClick={e => this.handleExpandClick()}
-            aria-expanded={expanded}
-            aria-label="Show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
+          <Grid container>
+            <Grid item xs={12}>
+              <Typography inline variant="h6" component="span">
+                {data.name}
+              </Typography>
+              <IconButton
+                className={classnames(classes.expand, {
+                  [classes.expandOpen]: expanded
+                })}
+                onClick={e => this.handleExpandClick()}
+                aria-expanded={expanded}
+                aria-label="Show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
         </CardContent>
         <Collapse in={expanded} timeout="auto">
           <OrderPanel menuItem={data} />
