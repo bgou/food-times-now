@@ -96,7 +96,7 @@ class MenuItem extends Component {
             <ExpandMoreIcon />
           </IconButton>
         </CardContent>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse in={expanded} timeout="auto">
           <OrderPanel menuItem={data} />
         </Collapse>
       </Card>
