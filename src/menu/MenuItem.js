@@ -1,20 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import Grid from "@material-ui/core/Grid";
-import Chip from "@material-ui/core/Chip";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from "@material-ui/core/styles";
-import FaceIcon from "@material-ui/icons/Face";
-import DoneIcon from "@material-ui/icons/Done";
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import OrderPanel from './OrderPanel'
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import classnames from 'classnames';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import OrderPanel from './OrderPanel';
 
 const styles = theme => ({
   "@global": {
@@ -41,7 +36,17 @@ const styles = theme => ({
   },
   chipWrapper: {
     margin: theme.spacing.unit
-  }
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
 });
 
 const Price = ({ price }) => {
@@ -49,22 +54,27 @@ const Price = ({ price }) => {
 };
 
 class MenuItem extends Component {
+  constructor(props) {
+    super(props)
+    this.state={
+      expanded: false
+    }
+    this.handleExpandClick = this.handleExpandClick.bind(this)
+  }
+
   static propTypes = {
     data: PropTypes.object
   };
 
+  handleExpandClick() {
+    this.setState({expanded: !this.state.expanded})
+  }
+
   render() {
     const { classes, data } = this.props;
 
-    const config = {
-      color: "default",
-      onDelete: "none",
-      avatar: "none",
-      icon: "none",
-      variant: "default"
-    };
-    const { color, onDelete, avatar, icon, variant } = config;
-
+    const {expanded} = this.state
+    
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -75,39 +85,26 @@ class MenuItem extends Component {
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h6">
             {data.name}
-          </Typography>
+          </Typography><IconButton
+            className={classnames(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={e=> this.handleExpandClick()}
+            aria-expanded={expanded}
+            aria-label="Show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
         </CardContent>
-        <CardActions>
+        {/* <CardActions>
+          
+        </CardActions> */}
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
           <OrderPanel menuItem={data} />
-          {/* <div className={classes.optionsGroup}>
-            <Button
-              size="medium"
-              color="primary"
-              className={classes.optionButton}
-            >
-              来一份 <Price price={data.price} />
-            </Button>
-            {data.options &&
-              data.options.map((option, idx) => (
-                <Grid container key={idx}>
-                  {option.choices.map((choice, c_idx) => (
-                    <Grid item xs={12} className={classes.chipWrapper} key={c_idx}>
-                      <FormControl component="fieldset">
-                        <FormLabel>avatar</FormLabel>
-                        <Chip
-                          label={`${choice.name} $${choice.price.toFixed(2)}`}
-                          key={c_idx}
-                          color={color}
-                          // onDelete={e=>handleDelete(data, choice)}
-                          variant={variant}
-                        />
-                      </FormControl>
-                    </Grid>
-                  ))}
-                </Grid>
-              ))}
-          </div> */}
-        </CardActions>
+
+        </CardContent>
+        </Collapse>
       </Card>
     );
   }
