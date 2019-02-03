@@ -11,8 +11,8 @@ import order_response from "../mock/order_response";
 const styles = theme => ({
   layout: {
     width: "auto",
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
     [theme.breakpoints.up(2048 + theme.spacing.unit * 3 * 2)]: {
       width: 2048,
       marginLeft: "auto",
