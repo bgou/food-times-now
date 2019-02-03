@@ -16,10 +16,6 @@ class MainCourse extends Component {
     menuOption: PropTypes.object.isRequired
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   handleDelete(choice) {}
 
   handleSelect(choice) {

@@ -4,7 +4,6 @@ import {
   withStyles,
   MuiThemeProvider
 } from "@material-ui/core/styles";
-import amber from "@material-ui/core/colors/amber";
 import PropTypes from "prop-types";
 import React from "react";
 import Footer from "./layout/Footer";
@@ -27,6 +26,9 @@ const theme = createMuiTheme({
     secondary: {
       main: "#ffe082"
     }
+  },
+  typography: {
+    useNextVariants: true
   }
 });
 

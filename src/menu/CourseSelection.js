@@ -25,11 +25,11 @@ export class CourseSelection extends Component {
     };
   }
 
-  handleClick(choice) {
+  handleClick = e => {
     const curColor = this.state.color;
     const color = curColor === "default" ? "primary" : "default";
     this.setState({ color });
-  }
+  };
 
   render() {
     const { classes, choice } = this.props;
@@ -40,8 +40,8 @@ export class CourseSelection extends Component {
         className={classes.chip}
         label={`${choice.name} $${choice.price.toFixed(2)}`}
         color={color}
-        onClick={e => this.handleClick(e)}
-        onDelete={e => this.handleClick(e)}
+        onClick={this.handleClick}
+        onDelete={this.handleClick}
         deleteIcon={<DoneIcon />}
       />
     );

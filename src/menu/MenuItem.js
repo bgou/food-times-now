@@ -48,10 +48,6 @@ const styles = theme => ({
   }
 });
 
-const Price = ({ price }) => {
-  return `$${price.toFixed(2)}`;
-};
-
 class MenuItem extends Component {
   constructor(props) {
     super(props);
