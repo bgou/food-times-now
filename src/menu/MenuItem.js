@@ -56,7 +56,7 @@ class MenuItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false
+      expanded: true
     };
     this.handleExpandClick = this.handleExpandClick.bind(this);
   }
