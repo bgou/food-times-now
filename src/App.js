@@ -1,32 +1,50 @@
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
-import React from 'react';
-import Footer from './layout/Footer';
-import TopBar from './layout/TopBar';
-import DailyMenu from './pages/DailyMenu';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import {
+  createMuiTheme,
+  withStyles,
+  MuiThemeProvider
+} from "@material-ui/core/styles";
+import amber from "@material-ui/core/colors/amber";
+import PropTypes from "prop-types";
+import React from "react";
+import Footer from "./layout/Footer";
+import TopBar from "./layout/TopBar";
+import DailyMenu from "./pages/DailyMenu";
 
 const styles = theme => ({
-  '@global': {
+  "@global": {
     body: {
-      backgroundColor: theme.palette.common.white,
+      backgroundColor: theme.palette.common.white
+    }
+  }
+});
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#ffd740"
     },
+    secondary: {
+      main: "#ffe082"
+    }
   }
 });
 
 function App() {
   return (
     <React.Fragment>
-      <CssBaseline />
-      <TopBar />
-      <DailyMenu />
-      <Footer />
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <TopBar />
+        <DailyMenu />
+        <Footer />
+      </MuiThemeProvider>
     </React.Fragment>
   );
 }
 
 App.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(App);
