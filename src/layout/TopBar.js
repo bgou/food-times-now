@@ -15,7 +15,7 @@ const styles = () => ({
   }
 });
 
-const TopBar = ({classes}) => {
+const TopBar = ({ classes }) => {
   return (
     <AppBar position="static" color="default" className={classes.appBar}>
       <Toolbar>
@@ -25,22 +25,18 @@ const TopBar = ({classes}) => {
           noWrap
           className={classes.toolbarTitle}
         >
-          小食代 Food Times
+          小食代
         </Typography>
-        <Button>Features</Button>
-        <Button>Enterprise</Button>
-        <Button>Support</Button>
-        <Button color="primary" variant="outlined">
-          Login
-        </Button>
+        <Button>亚马逊午餐</Button>
+        <Button>月子餐</Button>
+        <Button variant="outlined">Login</Button>
       </Toolbar>
     </AppBar>
   );
 };
 
-
 TopBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(TopBar);
