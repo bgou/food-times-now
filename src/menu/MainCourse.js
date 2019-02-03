@@ -16,12 +16,6 @@ class MainCourse extends Component {
     menuOption: PropTypes.object.isRequired
   };
 
-  handleDelete(choice) {}
-
-  handleSelect(choice) {
-    this.setState({ color: "primary" });
-  }
-
   render() {
     const { classes, menuOption } = this.props;
 
@@ -31,12 +25,7 @@ class MainCourse extends Component {
           {menuOption.category}
         </Typography>
         {menuOption.choices.map((choice, idx) => (
-          <CourseSelection
-            key={idx}
-            choice={choice}
-            selectionHandler={this.handleSelect}
-            deleteHandler={this.handleDelete}
-          />
+          <CourseSelection key={idx} choice={choice} />
         ))}
       </div>
     );

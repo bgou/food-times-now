@@ -13,9 +13,7 @@ const styles = theme => ({
 
 export class CourseSelection extends Component {
   static propTypes = {
-    choice: PropTypes.object.isRequired,
-    selectionHandler: PropTypes.func.isRequired,
-    deleteHandler: PropTypes.func.isRequired
+    choice: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -26,9 +24,20 @@ export class CourseSelection extends Component {
   }
 
   handleClick = e => {
-    const curColor = this.state.color;
-    const color = curColor === "default" ? "primary" : "default";
+    const { choice } = this.props;
+    if (!choice.is_selected) {
+      choice.is_selected = true;
+    } else {
+      choice.is_selected = !choice.is_selected;
+    }
+
+    const color = this.getColor(choice);
+
     this.setState({ color });
+  };
+
+  getColor = choice => {
+    return choice.is_selected === true ? "primary" : "default";
   };
 
   render() {
