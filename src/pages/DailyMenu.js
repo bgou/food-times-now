@@ -1,5 +1,6 @@
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
+import Fab from '@material-ui/core/Fab'
 import Typography from '@material-ui/core/Typography'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
@@ -7,6 +8,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import MenuItem from '../menu/MenuItem'
 import order_response from '../mock/order_response'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 
 const styles = theme => ({
   layout: {
@@ -26,6 +28,11 @@ const styles = theme => ({
   },
   cardHeader: {
     backgroundColor: theme.palette.grey[200],
+  },
+  absolute: {
+    position: 'fixed',
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 3,
   },
 })
 
@@ -70,6 +77,10 @@ const DailyMenu = ({ classes }) => {
           ))}
         </Grid>
       </div>
+
+      <Fab color="primary" className={classes.absolute}>
+        <ShoppingCartIcon />
+      </Fab>
     </main>
   )
 }

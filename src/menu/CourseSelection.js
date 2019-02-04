@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Chip from '@material-ui/core/Chip'
 import DoneIcon from '@material-ui/icons/Done'
 import { withStyles } from '@material-ui/core/styles'
+import { addItem } from '../store/cart'
 
 const styles = theme => ({
   chip: {
@@ -24,7 +26,8 @@ export class CourseSelection extends Component {
   }
 
   handleClick = e => {
-    const { choice } = this.props
+    const { choice, dispatch } = this.props
+    dispatch(addItem(choice))
     if (!choice.is_selected) {
       choice.is_selected = true
     } else {
@@ -56,4 +59,7 @@ export class CourseSelection extends Component {
   }
 }
 
-export default withStyles(styles)(CourseSelection)
+const mapStateToProps = state => ({
+  cart: state.cart,
+})
+export default connect(mapStateToProps)(withStyles(styles)(CourseSelection))

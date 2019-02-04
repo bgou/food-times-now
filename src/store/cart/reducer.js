@@ -7,7 +7,12 @@ const initialState = {
 export const cartReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case CART_ACTIONS.ADD:
-      return { ...state, ...payload }
+      console.log('payload: ' + JSON.stringify(payload, null, ' '))
+      return {
+        ...state,
+        items: [...state.items, payload],
+        total: state.total + payload.price,
+      }
 
     default:
       return state
