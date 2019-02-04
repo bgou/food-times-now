@@ -14,10 +14,11 @@ class MainCourse extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     menuOption: PropTypes.object.isRequired,
+    itemId: PropTypes.string.isRequired,
   }
 
   render() {
-    const { classes, menuOption } = this.props
+    const { classes, itemId, menuOption } = this.props
 
     return (
       <div className={classes.root}>
@@ -25,7 +26,7 @@ class MainCourse extends Component {
           {menuOption.category}
         </Typography>
         {menuOption.choices.map((choice, idx) => (
-          <CourseSelection key={idx} choice={choice} />
+          <CourseSelection key={idx} itemId={itemId} choice={choice} />
         ))}
       </div>
     )

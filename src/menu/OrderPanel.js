@@ -13,8 +13,8 @@ export class OrderPanel extends Component {
     return (
       <Grid container>
         <Grid item xs={12}>
-          <MainCourse menuOption={menuItem.options[0]} />
-          <MainCourse menuOption={menuItem.options[1]} />
+          <MainCourse menuOption={menuItem.options[0]} itemId={menuItem.id} />
+          <MainCourse menuOption={menuItem.options[1]} itemId={menuItem.id} />
         </Grid>
       </Grid>
     )

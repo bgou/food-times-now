@@ -2,6 +2,7 @@ import { CART_ACTIONS } from './action'
 
 const initialState = {
   items: [],
+  total: 0,
 }
 
 export const cartReducer = (state = initialState, { type, payload }) => {
@@ -13,11 +14,19 @@ export const cartReducer = (state = initialState, { type, payload }) => {
         total: state.total + payload.price,
       }
     case CART_ACTIONS.REMOVE:
-      const items = state.items.filter(item => item.name !== payload.name)
+      let total = 0
+      const items = state.items.reduce((result, item) => {
+        if (item.itemId !== payload.itemId || item.name !== payload.name) {
+          total += item.price
+          result.push(item)
+        }
+        return result
+      }, [])
+
       return {
         ...state,
         items,
-        total: state.total - payload.price,
+        total,
       }
     default:
       return state

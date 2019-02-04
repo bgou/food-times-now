@@ -15,6 +15,7 @@ const styles = theme => ({
 
 export class CourseSelection extends Component {
   static propTypes = {
+    itemId: PropTypes.string.isRequired,
     choice: PropTypes.object.isRequired,
   }
 
@@ -26,14 +27,14 @@ export class CourseSelection extends Component {
   }
 
   handleClick = e => {
-    const { choice, dispatch } = this.props
+    const { choice, dispatch, itemId } = this.props
 
     if (!choice.is_selected) {
       choice.is_selected = true
-      dispatch(addItem(choice))
+      dispatch(addItem({ ...choice, itemId }))
     } else {
       choice.is_selected = !choice.is_selected
-      dispatch(removeItem(choice))
+      dispatch(removeItem({ ...choice, itemId }))
     }
 
     const color = this.getColor(choice)
