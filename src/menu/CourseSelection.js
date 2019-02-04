@@ -32,7 +32,6 @@ export class CourseSelection extends Component {
     }
 
     const color = this.getColor(choice);
-
     this.setState({ color });
   };
 
