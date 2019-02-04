@@ -1,36 +1,36 @@
-import Grid from "@material-ui/core/Grid";
-import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import classNames from "classnames";
-import PropTypes from "prop-types";
-import React from "react";
-import { Helmet } from "react-helmet";
-import MenuItem from "../menu/MenuItem";
-import order_response from "../mock/order_response";
+import Grid from '@material-ui/core/Grid'
+import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import classNames from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import MenuItem from '../menu/MenuItem'
+import order_response from '../mock/order_response'
 
 const styles = theme => ({
   layout: {
-    width: "auto",
+    width: 'auto',
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
     [theme.breakpoints.up(2048 + theme.spacing.unit * 3 * 2)]: {
       width: 2048,
-      marginLeft: "auto",
-      marginRight: "auto"
-    }
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   },
   heroContent: {
     maxWidth: 600,
-    margin: "0 auto",
-    padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`
+    margin: '0 auto',
+    padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`,
   },
   cardHeader: {
-    backgroundColor: theme.palette.grey[200]
-  }
-});
+    backgroundColor: theme.palette.grey[200],
+  },
+})
 
 const DailyMenu = ({ classes }) => {
-  const data = order_response[0];
+  const data = order_response[0]
   return (
     <main className={classes.layout}>
       {/* Hero unit */}
@@ -47,7 +47,7 @@ const DailyMenu = ({ classes }) => {
         >
           {data.title}
         </Typography>
-        {data.subtitle.split("\n").map((line, i) => (
+        {data.subtitle.split('\n').map((line, i) => (
           <Typography
             key={i}
             variant="h6"
@@ -71,11 +71,11 @@ const DailyMenu = ({ classes }) => {
         </Grid>
       </div>
     </main>
-  );
-};
+  )
+}
 
 DailyMenu.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+  classes: PropTypes.object.isRequired,
+}
 
-export default withStyles(styles)(DailyMenu);
+export default withStyles(styles)(DailyMenu)

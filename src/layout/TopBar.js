@@ -1,19 +1,19 @@
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import { withStyles } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import PropTypes from "prop-types";
-import React from "react";
+import AppBar from '@material-ui/core/AppBar'
+import Button from '@material-ui/core/Button'
+import { withStyles } from '@material-ui/core/styles'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 const styles = () => ({
   appBar: {
-    position: "relative"
+    position: 'relative',
   },
   toolbarTitle: {
-    flex: 1
-  }
-});
+    flex: 1,
+  },
+})
 
 const TopBar = ({ classes }) => {
   return (
@@ -32,11 +32,11 @@ const TopBar = ({ classes }) => {
         <Button variant="outlined">Login</Button>
       </Toolbar>
     </AppBar>
-  );
-};
+  )
+}
 
 TopBar.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+  classes: PropTypes.object.isRequired,
+}
 
-export default withStyles(styles)(TopBar);
+export default withStyles(styles)(TopBar)

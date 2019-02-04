@@ -1,17 +1,17 @@
-import { CART_ACTIONS } from "./action";
+import { CART_ACTIONS } from './action'
 
 const initialState = {
-  items: []
-};
+  items: [],
+}
 
 export const cartReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case CART_ACTIONS.ADD:
-      return { ...state, ...payload };
+      return { ...state, ...payload }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default cartReducer;
+export default cartReducer

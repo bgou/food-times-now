@@ -1,73 +1,73 @@
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Collapse from "@material-ui/core/Collapse";
-import IconButton from "@material-ui/core/IconButton";
-import Grid from "@material-ui/core/Grid";
-import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import classnames from "classnames";
-import PropTypes from "prop-types";
-import React, { Component } from "react";
-import OrderPanel from "./OrderPanel";
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Collapse from '@material-ui/core/Collapse'
+import IconButton from '@material-ui/core/IconButton'
+import Grid from '@material-ui/core/Grid'
+import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import classnames from 'classnames'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import OrderPanel from './OrderPanel'
 
 const styles = theme => ({
-  "@global": {
+  '@global': {
     body: {
-      backgroundColor: theme.palette.common.white
-    }
+      backgroundColor: theme.palette.common.white,
+    },
   },
   card: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column"
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
   cardMedia: {
-    paddingTop: "56.25%" // 16:9
+    paddingTop: '56.25%', // 16:9
   },
   cardContent: {
-    display: "flex",
+    display: 'flex',
     flexGrow: 1,
-    justifyContent: "flex-start"
+    justifyContent: 'flex-start',
   },
   optionButton: {
-    marginRight: "8px"
+    marginRight: '8px',
   },
   chipWrapper: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
   },
   expand: {
-    transform: "rotate(0deg)",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
+    transform: 'rotate(0deg)',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
   },
   expandOpen: {
-    transform: "rotate(180deg)"
-  }
-});
+    transform: 'rotate(180deg)',
+  },
+})
 
 class MenuItem extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      expanded: true
-    };
-    this.handleExpandClick = this.handleExpandClick.bind(this);
+      expanded: true,
+    }
+    this.handleExpandClick = this.handleExpandClick.bind(this)
   }
 
   static propTypes = {
-    data: PropTypes.object
-  };
+    data: PropTypes.object,
+  }
 
   handleExpandClick() {
-    this.setState({ expanded: !this.state.expanded });
+    this.setState({ expanded: !this.state.expanded })
   }
 
   render() {
-    const { classes, data } = this.props;
-    const { expanded } = this.state;
+    const { classes, data } = this.props
+    const { expanded } = this.state
 
     return (
       <Card className={classes.card}>
@@ -84,7 +84,7 @@ class MenuItem extends Component {
               </Typography>
               <IconButton
                 className={classnames(classes.expand, {
-                  [classes.expandOpen]: expanded
+                  [classes.expandOpen]: expanded,
                 })}
                 onClick={e => this.handleExpandClick()}
                 aria-expanded={expanded}
@@ -99,7 +99,7 @@ class MenuItem extends Component {
           <OrderPanel menuItem={data} />
         </Collapse>
       </Card>
-    );
+    )
   }
 }
-export default withStyles(styles)(MenuItem);
+export default withStyles(styles)(MenuItem)
