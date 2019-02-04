@@ -1,10 +1,10 @@
+import Chip from '@material-ui/core/Chip'
+import { withStyles } from '@material-ui/core/styles'
+import DoneIcon from '@material-ui/icons/Done'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import Chip from '@material-ui/core/Chip'
-import DoneIcon from '@material-ui/icons/Done'
-import { withStyles } from '@material-ui/core/styles'
-import { addItem } from '../store/cart'
+import { addItem, removeItem } from '../store/cart'
 
 const styles = theme => ({
   chip: {
@@ -27,11 +27,13 @@ export class CourseSelection extends Component {
 
   handleClick = e => {
     const { choice, dispatch } = this.props
-    dispatch(addItem(choice))
+
     if (!choice.is_selected) {
       choice.is_selected = true
+      dispatch(addItem(choice))
     } else {
       choice.is_selected = !choice.is_selected
+      dispatch(removeItem(choice))
     }
 
     const color = this.getColor(choice)
