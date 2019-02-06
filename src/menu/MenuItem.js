@@ -31,11 +31,10 @@ const styles = theme => ({
     flexGrow: 1,
     justifyContent: 'flex-start',
   },
-  optionButton: {
-    marginRight: '8px',
-  },
-  chipWrapper: {
-    margin: theme.spacing.unit,
+  itemTitle: {
+    display: 'flex',
+    justifyItems: 'center',
+    alignItems: 'center',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -48,11 +47,14 @@ const styles = theme => ({
   },
 })
 
+const mobileWidth = 600
+
 class MenuItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      expanded: true,
+      expanded: window.innerWidth > mobileWidth,
+      width: window.innerWidth,
     }
     this.handleExpandClick = this.handleExpandClick.bind(this)
   }
@@ -63,6 +65,18 @@ class MenuItem extends Component {
 
   handleExpandClick() {
     this.setState({ expanded: !this.state.expanded })
+  }
+
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth })
+  }
+
+  componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange)
   }
 
   render() {
@@ -78,7 +92,7 @@ class MenuItem extends Component {
         />
         <CardContent className={classes.cardContent}>
           <Grid container>
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.itemTitle}>
               <Typography inline variant="h6" component="span">
                 {data.name}
               </Typography>
