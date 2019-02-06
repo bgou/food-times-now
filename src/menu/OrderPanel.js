@@ -12,10 +12,11 @@ export class OrderPanel extends Component {
     const { menuItem } = this.props
     return (
       <Grid container>
-        <Grid item xs={12}>
-          <MainCourse menuOption={menuItem.options[0]} itemId={menuItem.id} />
-          <MainCourse menuOption={menuItem.options[1]} itemId={menuItem.id} />
-        </Grid>
+        {menuItem.options.map((option, idx) => (
+          <Grid item xs={12} key={idx}>
+            <MainCourse menuOption={option} itemId={menuItem.id} />
+          </Grid>
+        ))}
       </Grid>
     )
   }
