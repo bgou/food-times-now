@@ -1,7 +1,18 @@
 import { createStore } from 'redux'
-import { combineReducers } from 'redux'
-import { cartReducer } from './cart'
+import rootReducer from './rootReducer'
 
-const rootReducer = combineReducers({ cart: cartReducer })
+const configureStore = () => {
+  const store = createStore(rootReducer)
 
-export default createStore(rootReducer)
+  if (process.env.NODE_ENV !== 'production') {
+    if (module.hot) {
+      module.hot.accept('./rootReducer', () => {
+        store.replaceReducer(rootReducer)
+      })
+    }
+  }
+
+  return store
+}
+
+export default configureStore
