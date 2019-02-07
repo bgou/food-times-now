@@ -1,8 +1,8 @@
+import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Collapse from '@material-ui/core/Collapse'
-import IconButton from '@material-ui/core/IconButton'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
@@ -35,6 +35,7 @@ const styles = theme => ({
     display: 'flex',
     justifyItems: 'center',
     alignItems: 'center',
+    cursor: 'pointer',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -91,21 +92,25 @@ class MenuItem extends Component {
           title={data.name}
         />
         <CardContent className={classes.cardContent}>
-          <Grid container>
-            <Grid item xs={12} className={classes.itemTitle}>
-              <Typography inline variant="h6" component="span">
-                {data.name}
-              </Typography>
-              <IconButton
-                className={classnames(classes.expand, {
-                  [classes.expandOpen]: expanded,
-                })}
-                onClick={e => this.handleExpandClick()}
-                aria-expanded={expanded}
-                aria-label="Show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
+          <Grid
+            container
+            className={classes.itemTitle}
+            onClick={e => this.handleExpandClick()}
+          >
+            <Grid item xs={12}>
+              <Button>
+                <Typography inline variant="h6" component="span">
+                  {data.name}
+                </Typography>
+
+                <ExpandMoreIcon
+                  className={classnames(classes.expand, {
+                    [classes.expandOpen]: expanded,
+                  })}
+                  aria-expanded={expanded}
+                  aria-label="Show more"
+                />
+              </Button>
             </Grid>
           </Grid>
         </CardContent>
