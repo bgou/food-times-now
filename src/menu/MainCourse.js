@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import CourseSelection from './CourseSelection'
+import { addItem, removeItem } from '../store/cart'
 
 const styles = theme => ({
   root: {
@@ -17,6 +19,43 @@ class MainCourse extends Component {
     itemId: PropTypes.string.isRequired,
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      itemsSelected: 0,
+    }
+    this.handleClick = this.handleClick.bind(this)
+    this.updateCount = this.updateCount.bind(this)
+  }
+
+  updateCount(count) {
+    const { itemsSelected } = this.state
+    this.setState({ itemsSelected: itemsSelected + count })
+  }
+
+  handleClick = (itemId, choice) => {
+    const { dispatch, menuOption } = this.props
+    const { max_choices } = menuOption
+
+    if (!choice.is_selected) {
+      if (this.state.itemsSelected + 1 > max_choices) {
+        this.setState({
+          error: true,
+          errorText: `最多只可以选择 ${max_choices} 种哦亲!`,
+        })
+        return
+      }
+      choice.is_selected = true
+      this.updateCount(1)
+      dispatch(addItem({ ...choice, itemId }))
+    } else {
+      this.setState({ error: false, errorText: null })
+      choice.is_selected = false
+      this.updateCount(-1)
+      dispatch(removeItem({ ...choice, itemId }))
+    }
+  }
+
   render() {
     const { classes, itemId, menuOption } = this.props
 
@@ -25,12 +64,25 @@ class MainCourse extends Component {
         <Typography gutterBottom variant="subtitle1">
           {menuOption.category}
         </Typography>
+        {this.state.error && (
+          <Typography gutterBottom variant="subtitle2" color="error">
+            {this.state.errorText}
+          </Typography>
+        )}
         {menuOption.choices.map((choice, idx) => (
-          <CourseSelection key={idx} itemId={itemId} choice={choice} />
+          <CourseSelection
+            key={idx}
+            itemId={itemId}
+            choice={choice}
+            handleClick={e => this.handleClick(itemId, choice)}
+          />
         ))}
       </div>
     )
   }
 }
 
-export default withStyles(styles)(MainCourse)
+const mapStateToProps = state => ({
+  cart: state.cart,
+})
+export default connect(mapStateToProps)(withStyles(styles)(MainCourse))
