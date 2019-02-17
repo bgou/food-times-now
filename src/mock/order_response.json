@@ -21,15 +21,15 @@
             "choices": [
               {
                 "name": "白饭",
-                "price": 0
+                "price": 12.75
               },
               {
                 "name": "糙饭",
-                "price": 1
+                "price": 13.75
               },
               {
                 "name": "白饭加量",
-                "price": 1
+                "price": 14.75
               }
             ]
           },
@@ -38,10 +38,6 @@
             "max_choices": 2,
             "default_selection": 0,
             "choices": [
-              {
-                "name": "无",
-                "price": 0
-              },
               {
                 "name": "粉蒸牛肉",
                 "price": 4
@@ -81,15 +77,15 @@
             "choices": [
               {
                 "name": "白饭",
-                "price": 0
+                "price": 12.75
               },
               {
                 "name": "糙饭",
-                "price": 1
+                "price": 13.75
               },
               {
                 "name": "白饭加量",
-                "price": 1
+                "price": 14.75
               }
             ]
           },
@@ -141,15 +137,15 @@
             "choices": [
               {
                 "name": "白饭",
-                "price": 0
+                "price": 12.75
               },
               {
                 "name": "糙饭",
-                "price": 1
+                "price": 13.75
               },
               {
                 "name": "白饭加量",
-                "price": 1
+                "price": 14.75
               }
             ]
           },
@@ -201,15 +197,15 @@
             "choices": [
               {
                 "name": "白饭",
-                "price": 0
+                "price": 12.75
               },
               {
                 "name": "糙饭",
-                "price": 1
+                "price": 13.75
               },
               {
                 "name": "白饭加量",
-                "price": 1
+                "price": 14.75
               }
             ]
           },
@@ -261,15 +257,15 @@
             "choices": [
               {
                 "name": "白饭",
-                "price": 0
+                "price": 12.75
               },
               {
                 "name": "糙饭",
-                "price": 1
+                "price": 13.75
               },
               {
                 "name": "白饭加量",
-                "price": 1
+                "price": 14.75
               }
             ]
           },
@@ -321,15 +317,15 @@
             "choices": [
               {
                 "name": "白饭",
-                "price": 0
+                "price": 12.75
               },
               {
                 "name": "糙饭",
-                "price": 1
+                "price": 13.75
               },
               {
                 "name": "白饭加量",
-                "price": 1
+                "price": 14.75
               }
             ]
           },
@@ -381,15 +377,15 @@
             "choices": [
               {
                 "name": "白饭",
-                "price": 0
+                "price": 12.75
               },
               {
                 "name": "糙饭",
-                "price": 1
+                "price": 13.75
               },
               {
                 "name": "白饭加量",
-                "price": 1
+                "price": 14.75
               }
             ]
           },
@@ -441,15 +437,15 @@
             "choices": [
               {
                 "name": "白饭",
-                "price": 0
+                "price": 12.75
               },
               {
                 "name": "糙饭",
-                "price": 1
+                "price": 13.75
               },
               {
                 "name": "白饭加量",
-                "price": 1
+                "price": 14.75
               }
             ]
           },

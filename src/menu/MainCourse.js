@@ -33,7 +33,7 @@ class MainCourse extends Component {
     this.setState({ itemsSelected: itemsSelected + count })
   }
 
-  handleClick = (itemId, choice) => {
+  handleMultiSelect(itemId, choice) {
     const { dispatch, menuOption } = this.props
     const { max_choices } = menuOption
 
@@ -53,6 +53,37 @@ class MainCourse extends Component {
       choice.is_selected = false
       this.updateCount(-1)
       dispatch(removeItem({ ...choice, itemId }))
+    }
+  }
+
+  handleSingleSelect(itemId, choice) {
+    const { dispatch, menuOption } = this.props
+    const { choices } = menuOption
+
+    const selected = choices.filter(c => c.is_selected)
+
+    let differentItem = true
+    for (const c of selected) {
+      c.is_selected = false
+      this.updateCount(-1)
+      dispatch(removeItem({ ...c, itemId }))
+      if (c.name === choice.name) {
+        differentItem = false
+      }
+    }
+
+    if (differentItem) {
+      choice.is_selected = true
+      this.updateCount(1)
+      dispatch(addItem({ ...choice, itemId }))
+    }
+  }
+
+  handleClick = (itemId, choice) => {
+    if (this.props.menuOption.max_choices > 1) {
+      this.handleMultiSelect(itemId, choice)
+    } else {
+      this.handleSingleSelect(itemId, choice)
     }
   }
 
