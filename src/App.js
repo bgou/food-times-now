@@ -9,6 +9,7 @@ import React from 'react'
 import Footer from './layout/Footer'
 import TopBar from './layout/TopBar'
 import DailyMenu from './pages/DailyMenu'
+import Cart from './pages/Cart'
 
 const styles = theme => ({
   '@global': {
@@ -37,8 +38,11 @@ function App() {
     <React.Fragment>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
+        {/* <Route> */}
+        <Cart />
         <TopBar />
         <DailyMenu />
+        {/* </Route> */}
         <Footer />
       </MuiThemeProvider>
     </React.Fragment>

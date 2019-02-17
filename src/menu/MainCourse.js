@@ -16,7 +16,7 @@ class MainCourse extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     menuOption: PropTypes.object.isRequired,
-    itemId: PropTypes.string.isRequired,
+    menuItem: PropTypes.object.isRequired,
   }
 
   constructor(props) {
@@ -33,7 +33,7 @@ class MainCourse extends Component {
   }
 
   handleMultiSelect(itemId, choice) {
-    const { dispatch, menuOption } = this.props
+    const { dispatch, menuOption, menuItem } = this.props
     const { max_choices } = menuOption
 
     if (!choice.is_selected) {
@@ -78,7 +78,7 @@ class MainCourse extends Component {
     }
   }
 
-  handleClick = (itemId, choice) => {
+  handleClick = ({ id: itemId }, choice) => {
     if (this.props.menuOption.max_choices > 1) {
       this.handleMultiSelect(itemId, choice)
     } else {
@@ -87,7 +87,7 @@ class MainCourse extends Component {
   }
 
   render() {
-    const { classes, itemId, menuOption } = this.props
+    const { classes, menuOption, menuItem } = this.props
 
     return (
       <div className={classes.root}>
@@ -102,9 +102,9 @@ class MainCourse extends Component {
         {menuOption.choices.map((choice, idx) => (
           <CourseSelection
             key={idx}
-            itemId={itemId}
+            menuOption={menuOption}
             choice={choice}
-            handleClick={e => this.handleClick(itemId, choice)}
+            handleClick={e => this.handleClick(menuItem, choice)}
           />
         ))}
       </div>

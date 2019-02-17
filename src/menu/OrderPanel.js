@@ -14,7 +14,7 @@ export class OrderPanel extends Component {
       <Grid container>
         {menuItem.options.map((option, idx) => (
           <Grid item xs={12} key={idx}>
-            <MainCourse menuOption={option} itemId={menuItem.id} />
+            <MainCourse menuOption={option} menuItem={menuItem} />
           </Grid>
         ))}
       </Grid>

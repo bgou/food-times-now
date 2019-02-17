@@ -13,7 +13,7 @@ const styles = theme => ({
 
 export class CourseSelection extends Component {
   static propTypes = {
-    itemId: PropTypes.string.isRequired,
+    menuOption: PropTypes.object.isRequired,
     choice: PropTypes.object.isRequired,
     handleClick: PropTypes.func.isRequired,
   }
