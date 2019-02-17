@@ -25,7 +25,6 @@ class MainCourse extends Component {
       itemsSelected: 0,
     }
     this.handleClick = this.handleClick.bind(this)
-    this.updateCount = this.updateCount.bind(this)
   }
 
   updateCount(count) {

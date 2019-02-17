@@ -95,10 +95,6 @@
             "default_selection": 0,
             "choices": [
               {
-                "name": "无",
-                "price": 0
-              },
-              {
                 "name": "粉蒸牛肉",
                 "price": 4
               },
@@ -154,10 +150,6 @@
             "max_choices": 2,
             "default_selection": 0,
             "choices": [
-              {
-                "name": "无",
-                "price": 0
-              },
               {
                 "name": "粉蒸牛肉",
                 "price": 4
@@ -215,10 +207,6 @@
             "default_selection": 0,
             "choices": [
               {
-                "name": "无",
-                "price": 0
-              },
-              {
                 "name": "粉蒸牛肉",
                 "price": 4
               },
@@ -274,10 +262,6 @@
             "max_choices": 2,
             "default_selection": 0,
             "choices": [
-              {
-                "name": "无",
-                "price": 0
-              },
               {
                 "name": "粉蒸牛肉",
                 "price": 4
@@ -335,10 +319,6 @@
             "default_selection": 0,
             "choices": [
               {
-                "name": "无",
-                "price": 0
-              },
-              {
                 "name": "粉蒸牛肉",
                 "price": 4
               },
@@ -395,10 +375,6 @@
             "default_selection": 0,
             "choices": [
               {
-                "name": "无",
-                "price": 0
-              },
-              {
                 "name": "粉蒸牛肉",
                 "price": 4
               },
@@ -454,10 +430,6 @@
             "max_choices": 2,
             "default_selection": 0,
             "choices": [
-              {
-                "name": "无",
-                "price": 0
-              },
               {
                 "name": "粉蒸牛肉",
                 "price": 4
