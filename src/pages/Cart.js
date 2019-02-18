@@ -11,6 +11,8 @@ import FolderIcon from '@material-ui/icons/Folder'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import isEmpty from 'lodash/isEmpty'
+import groupBy from 'lodash/groupBy'
 
 const styles = theme => ({
   root: {
@@ -26,24 +28,29 @@ export class Cart extends Component {
 
   render() {
     const { cart } = this.props
+    const groupedItems = groupBy(cart.items, 'itemId')
+    const groups = Object.entries(groupedItems)
     return (
       <div>
         <List>
-          {cart.items.map(item => (
-            <ListItem key={item.name}>
-              <ListItemAvatar>
-                <Avatar>
-                  <FolderIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={item.name} secondary={item.price} />
-              <ListItemSecondaryAction>
-                <IconButton aria-label="Delete">
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
+          {!isEmpty(groups) &&
+            groups.map(([itemId, items]) => {
+              return items.map(item => (
+                <ListItem key={item.name}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <FolderIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={item.name} secondary={item.price} />
+                  <ListItemSecondaryAction>
+                    <IconButton aria-label="Delete">
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))
+            })}
         </List>
       </div>
     )
