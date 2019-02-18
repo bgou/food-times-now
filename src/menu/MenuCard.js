@@ -59,6 +59,10 @@ const styles = theme => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  qtyControl: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
 })
 
 const mobileWidth = 600
@@ -117,7 +121,7 @@ class MenuCard extends Component {
 
   render() {
     const { classes, data } = this.props
-    const { qty, expanded } = this.state
+    const { qty } = this.state
 
     return (
       <Card className={classes.card}>
@@ -136,13 +140,15 @@ class MenuCard extends Component {
               </Button>
             </Grid>
 
-            <Grid item xs={5}>
+            <Grid item xs={5} className={classes.qtyControl}>
               <IconButton
                 className={classes.button}
                 aria-label="Add"
                 onClick={this.subtract}
               >
-                <Icon fontSize="small">remove</Icon>
+                <Icon fontSize="small" color="primary">
+                  remove_circle
+                </Icon>
               </IconButton>
               <Select
                 value={qty}
@@ -161,13 +167,15 @@ class MenuCard extends Component {
                 aria-label="Add"
                 onClick={this.add}
               >
-                <AddIcon fontSize="small" />
+                <Icon fontSize="small" color="primary">
+                  add_circle
+                </Icon>
               </IconButton>
             </Grid>
           </Grid>
         </CardContent>
-        <Collapse in={expanded} timeout="auto">
-          <OrderPanel menuItem={data} />
+        <Collapse in={qty > 0} timeout="auto">
+          <OrderPanel menuItem={data} qty={qty} />
         </Collapse>
       </Card>
     )
