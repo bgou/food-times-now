@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import MenuItem from '../menu/MenuItem'
+import MenuCard from '../menu/MenuCard'
 import ShoppingCart from '../menu/ShoppingCart'
 import order_response from '../mock/order_response'
 
@@ -71,7 +71,7 @@ const DailyMenu = ({ classes }) => {
         <Grid container spacing={40}>
           {data.menu_items.map((menu_item, idx) => (
             <Grid item key={idx} xs={12} sm={6} md={4} lg={3}>
-              <MenuItem data={menu_item} />
+              <MenuCard data={menu_item} />
             </Grid>
           ))}
         </Grid>

@@ -4,10 +4,15 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Collapse from '@material-ui/core/Collapse'
 import Grid from '@material-ui/core/Grid'
+import Icon from '@material-ui/core/Icon'
+import IconButton from '@material-ui/core/IconButton'
+import Input from '@material-ui/core/Input'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import classnames from 'classnames'
+import AddIcon from '@material-ui/icons/Add'
+import range from 'lodash/range'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import OrderPanel from './OrderPanel'
@@ -30,6 +35,14 @@ const styles = theme => ({
     display: 'flex',
     flexGrow: 1,
     justifyContent: 'flex-start',
+    padding: 0,
+  },
+  button: {
+    margin: 0,
+  },
+  select: {
+    padding: `${theme.spacing.unit}px`,
+    paddingRight: `${theme.spacing.unit * 3}px`,
   },
   itemTitle: {
     display: 'flex',
@@ -50,14 +63,17 @@ const styles = theme => ({
 
 const mobileWidth = 600
 
-class MenuItem extends Component {
+class MenuCard extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      qty: 0,
+      errorText: '',
       expanded: window.innerWidth > mobileWidth,
       width: window.innerWidth,
     }
     this.handleExpandClick = this.handleExpandClick.bind(this)
+    this.handleQtyChange = this.handleQtyChange.bind(this)
   }
 
   static propTypes = {
@@ -80,9 +96,28 @@ class MenuItem extends Component {
     window.removeEventListener('resize', this.handleWindowSizeChange)
   }
 
+  handleQtyChange(e) {
+    this.setState({ qty: e.target.value })
+  }
+
+  subtract = e => {
+    if (this.state.qty > 0) {
+      this.setState({ qty: this.state.qty - 1 })
+    }
+  }
+
+  add = e => {
+    const { limit_count } = this.props.data
+    if (this.state.qty + 1 > limit_count) {
+      this.setState({ errorText: `最多可以点 ${limit_count} 份喔亲` })
+    } else {
+      this.setState({ qty: this.state.qty + 1 })
+    }
+  }
+
   render() {
     const { classes, data } = this.props
-    const { expanded } = this.state
+    const { qty, expanded } = this.state
 
     return (
       <Card className={classes.card}>
@@ -92,25 +127,42 @@ class MenuItem extends Component {
           title={data.name}
         />
         <CardContent className={classes.cardContent}>
-          <Grid
-            container
-            className={classes.itemTitle}
-            onClick={e => this.handleExpandClick()}
-          >
-            <Grid item xs={12}>
-              <Button>
+          <Grid container>
+            <Grid item xs={7} className={classes.itemTitle}>
+              <Button onClick={e => this.handleExpandClick()}>
                 <Typography inline variant="h6" component="span">
                   {data.name}
                 </Typography>
-
-                <ExpandMoreIcon
-                  className={classnames(classes.expand, {
-                    [classes.expandOpen]: expanded,
-                  })}
-                  aria-expanded={expanded}
-                  aria-label="Show more"
-                />
               </Button>
+            </Grid>
+
+            <Grid item xs={5}>
+              <IconButton
+                className={classes.button}
+                aria-label="Add"
+                onClick={this.subtract}
+              >
+                <Icon fontSize="small">remove</Icon>
+              </IconButton>
+              <Select
+                value={qty}
+                classes={{ select: classes.select }}
+                onChange={this.handleQtyChange}
+                input={<Input name="qty" id="qty" />}
+              >
+                {range(0, 11).map(q => (
+                  <MenuItem key={q} value={q}>
+                    {q.toString()}
+                  </MenuItem>
+                ))}
+              </Select>
+              <IconButton
+                className={classes.button}
+                aria-label="Add"
+                onClick={this.add}
+              >
+                <AddIcon fontSize="small" />
+              </IconButton>
             </Grid>
           </Grid>
         </CardContent>
@@ -121,4 +173,4 @@ class MenuItem extends Component {
     )
   }
 }
-export default withStyles(styles)(MenuItem)
+export default withStyles(styles)(MenuCard)
