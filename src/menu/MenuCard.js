@@ -4,18 +4,12 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Collapse from '@material-ui/core/Collapse'
 import Grid from '@material-ui/core/Grid'
-import Icon from '@material-ui/core/Icon'
-import IconButton from '@material-ui/core/IconButton'
-import Input from '@material-ui/core/Input'
-import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import AddIcon from '@material-ui/icons/Add'
-import range from 'lodash/range'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import OrderPanel from './OrderPanel'
+import QuantityControl from './QuantityControl'
 
 const styles = theme => ({
   '@global': {
@@ -36,13 +30,6 @@ const styles = theme => ({
     flexGrow: 1,
     justifyContent: 'flex-start',
     padding: 0,
-  },
-  button: {
-    margin: 0,
-  },
-  select: {
-    padding: `${theme.spacing.unit}px`,
-    paddingRight: `${theme.spacing.unit * 3}px`,
   },
   itemTitle: {
     display: 'flex',
@@ -141,36 +128,12 @@ class MenuCard extends Component {
             </Grid>
 
             <Grid item xs={5} className={classes.qtyControl}>
-              <IconButton
-                className={classes.button}
-                aria-label="Add"
-                onClick={this.subtract}
-              >
-                <Icon fontSize="small" color="primary">
-                  remove_circle
-                </Icon>
-              </IconButton>
-              <Select
-                value={qty}
-                classes={{ select: classes.select }}
-                onChange={this.handleQtyChange}
-                input={<Input name="qty" id="qty" />}
-              >
-                {range(0, 11).map(q => (
-                  <MenuItem key={q} value={q}>
-                    {q.toString()}
-                  </MenuItem>
-                ))}
-              </Select>
-              <IconButton
-                className={classes.button}
-                aria-label="Add"
-                onClick={this.add}
-              >
-                <Icon fontSize="small" color="primary">
-                  add_circle
-                </Icon>
-              </IconButton>
+              <QuantityControl
+                qty={qty}
+                add={this.add}
+                subtract={this.subtract}
+                handleQtyChange={this.handleQtyChange}
+              />
             </Grid>
           </Grid>
         </CardContent>
