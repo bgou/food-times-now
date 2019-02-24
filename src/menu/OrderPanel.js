@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
-import MainCourse from './MainCourse'
+import Course from './Course'
 import range from 'lodash/range'
 
 export class OrderPanel extends Component {
   static propTypes = {
     menuItem: PropTypes.object,
+    id: PropTypes.number,
     qty: PropTypes.number,
   }
 
   render() {
-    const { menuItem, qty } = this.props
+    const { id, menuItem, qty } = this.props
     return (
       <Grid container>
         {range(qty).map(i => (
@@ -19,7 +20,7 @@ export class OrderPanel extends Component {
             <Grid container>
               {menuItem.options.map((option, idx) => (
                 <Grid item xs={12} key={idx}>
-                  <MainCourse menuOption={option} menuItem={menuItem} />
+                  <Course id={id} menuOption={option} menuItem={menuItem} />
                 </Grid>
               ))}
             </Grid>

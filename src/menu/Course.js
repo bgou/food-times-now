@@ -12,7 +12,7 @@ const styles = theme => ({
   },
 })
 
-class MainCourse extends Component {
+class Course extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     menuOption: PropTypes.object.isRequired,
@@ -131,4 +131,4 @@ class MainCourse extends Component {
 const mapStateToProps = state => ({
   cart: state.cart,
 })
-export default connect(mapStateToProps)(withStyles(styles)(MainCourse))
+export default connect(mapStateToProps)(withStyles(styles)(Course))
