@@ -36,7 +36,6 @@
           {
             "category": "加菜",
             "max_choices": 2,
-            "default_selection": 0,
             "choices": [
               {
                 "name": "粉蒸牛肉",
@@ -92,7 +91,6 @@
           {
             "category": "加菜",
             "max_choices": 2,
-            "default_selection": 0,
             "choices": [
               {
                 "name": "粉蒸牛肉",
@@ -148,7 +146,6 @@
           {
             "category": "加菜",
             "max_choices": 2,
-            "default_selection": 0,
             "choices": [
               {
                 "name": "粉蒸牛肉",
@@ -204,7 +201,6 @@
           {
             "category": "加菜",
             "max_choices": 2,
-            "default_selection": 0,
             "choices": [
               {
                 "name": "粉蒸牛肉",
@@ -260,7 +256,6 @@
           {
             "category": "加菜",
             "max_choices": 2,
-            "default_selection": 0,
             "choices": [
               {
                 "name": "粉蒸牛肉",
@@ -316,7 +311,6 @@
           {
             "category": "加菜",
             "max_choices": 2,
-            "default_selection": 0,
             "choices": [
               {
                 "name": "粉蒸牛肉",
@@ -372,7 +366,6 @@
           {
             "category": "加菜",
             "max_choices": 2,
-            "default_selection": 0,
             "choices": [
               {
                 "name": "粉蒸牛肉",
@@ -428,7 +421,6 @@
           {
             "category": "加菜",
             "max_choices": 2,
-            "default_selection": 0,
             "choices": [
               {
                 "name": "粉蒸牛肉",

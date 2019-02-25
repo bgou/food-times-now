@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import CourseSelection from './CourseSelection'
 import { addItem, removeItem } from '../store/cart'
+import isNumber from 'lodash/isNumber'
 
 const styles = theme => ({
   root: {
@@ -15,6 +16,7 @@ const styles = theme => ({
 class Course extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    id: PropTypes.number.isRequired,
     menuOption: PropTypes.object.isRequired,
     menuItem: PropTypes.object.isRequired,
   }
@@ -33,9 +35,9 @@ class Course extends Component {
   }
 
   handleMultiSelect(menuItem, choice) {
-    const { dispatch, menuOption } = this.props
+    const { dispatch, menuOption, id } = this.props
     const { max_choices } = menuOption
-    const itemId = menuItem.id
+    const itemId = id
 
     if (!choice.is_selected) {
       if (this.state.itemsSelected + 1 > max_choices) {
@@ -64,10 +66,10 @@ class Course extends Component {
   }
 
   handleSingleSelect(menuItem, choice) {
-    const { dispatch, menuOption } = this.props
+    const { dispatch, menuOption, id } = this.props
     const { choices } = menuOption
 
-    const itemId = menuItem.id
+    const itemId = id
     const selected = choices.filter(c => c.is_selected)
 
     let differentItem = true
@@ -102,8 +104,16 @@ class Course extends Component {
     }
   }
 
+  updateDefaultSelection = menuOption => {
+    const { default_selection } = menuOption
+    if (isNumber(default_selection)) {
+      menuOption.choices[default_selection].is_selected = true
+    }
+  }
+
   render() {
     const { classes, menuOption, menuItem } = this.props
+    this.updateDefaultSelection(menuOption)
 
     return (
       <div className={classes.root}>

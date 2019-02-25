@@ -16,7 +16,7 @@ export class OrderPanel extends Component {
   render() {
     const { menuItem, qty } = this.props
     const items = range(qty).map(i => {
-      const id = `${qty}-${i}`
+      const id = `${menuItem.id}-${qty}-${i}`
       return {
         id,
         menuItem: cloneDeep(menuItem),
