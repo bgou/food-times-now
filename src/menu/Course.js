@@ -16,7 +16,7 @@ const styles = theme => ({
 class Course extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     menuOption: PropTypes.object.isRequired,
     menuItem: PropTypes.object.isRequired,
   }

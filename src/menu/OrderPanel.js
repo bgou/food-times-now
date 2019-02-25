@@ -68,7 +68,6 @@ export class OrderPanel extends Component {
         items: [...this.state.items.slice(0, newQty)],
       })
     }
-    // update states
   }
 
   render() {
@@ -77,18 +76,15 @@ export class OrderPanel extends Component {
     return (
       <Grid container>
         {items.map(item => (
-          <Grid item key={item.id}>
-            <Grid container>
-              {item.menuItem.options.map((option, idx) => (
-                <Grid item xs={12} key={idx}>
-                  <Course
-                    id={item.id}
-                    menuOption={option}
-                    menuItem={item.menuItem}
-                  />
-                </Grid>
-              ))}
-            </Grid>
+          <Grid item xs={12} key={item.id}>
+            {item.menuItem.options.map((option, idx) => (
+              <Course
+                key={idx}
+                id={item.id}
+                menuOption={option}
+                menuItem={item.menuItem}
+              />
+            ))}
           </Grid>
         ))}
       </Grid>
