@@ -99,10 +99,12 @@ class MenuCard extends Component {
 
   add = e => {
     const { limit_count } = this.props.data
-    if (this.state.qty + 1 > limit_count) {
+    const desiredQty = this.state.qty + 1
+
+    if (desiredQty > limit_count) {
       this.setState({ errorText: `最多可以点 ${limit_count} 份喔亲` })
     } else {
-      this.setState({ qty: this.state.qty + 1 })
+      this.setState({ qty: desiredQty })
     }
   }
 

@@ -10,7 +10,12 @@ export const cartReducer = (state = initialState, { type, payload }) => {
     case CART_ACTIONS.ADD:
       return {
         ...state,
-        items: [...state.items, payload],
+        items: [
+          ...state.items,
+          {
+            ...payload,
+          },
+        ],
         total: state.total + payload.price,
       }
     case CART_ACTIONS.REMOVE:
