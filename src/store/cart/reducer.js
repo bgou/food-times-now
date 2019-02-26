@@ -21,8 +21,8 @@ export const cartReducer = (state = initialState, { type, payload }) => {
     case CART_ACTIONS.REMOVE:
       let total = 0
       const items = state.items.reduce((result, item) => {
-        if (item.itemId !== payload.itemId || item.name !== payload.name) {
-          total += item.price
+        if (item.id !== payload.id) {
+          // total += item.price
           result.push(item)
         }
         return result

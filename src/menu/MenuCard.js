@@ -6,12 +6,14 @@ import Collapse from '@material-ui/core/Collapse'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
+import cloneDeep from 'lodash/cloneDeep'
+import range from 'lodash/range'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import QuantityControl from './QuantityControl'
-import range from 'lodash/range'
-import cloneDeep from 'lodash/cloneDeep'
+import { connect } from 'react-redux'
+import { addItem, removeItem } from '../store/cart/action'
 import Course from './Course'
+import QuantityControl from './QuantityControl'
 
 const mobileWidth = 600
 const styles = theme => ({
@@ -55,8 +57,8 @@ const styles = theme => ({
   },
 })
 
-const getCartId = (menuItem, index) => {
-  return `${menuItem.id}-${index}`
+const getCartId = (menuItemId, index) => {
+  return `${menuItemId}@${index}`
 }
 
 const createNewOrder = (menuItem, i) => {
@@ -101,7 +103,7 @@ class MenuCard extends Component {
   }
 
   handleQtyChange(e) {
-    this.setState({ qty: e.target.value })
+    this.updateOrderQty(e.target.value)
   }
 
   subtract = e => {
@@ -124,7 +126,7 @@ class MenuCard extends Component {
   }
 
   updateOrderQty = newQty => {
-    const { data: menuItem } = this.props
+    const { data: menuItem, dispatch } = this.props
     const currentOrders = this.state.orders
     const oldQty = currentOrders.length
 
@@ -132,13 +134,18 @@ class MenuCard extends Component {
       // add new order(s)
       const addCount = newQty - oldQty
       const newOrders = range(addCount).map(i => {
-        return createNewOrder(menuItem, oldQty + i)
+        const o = createNewOrder(menuItem, oldQty + i)
+        dispatch(addItem(o))
+        return o
       })
       this.setState({
         orders: [...currentOrders, ...newOrders],
       })
     } else if (oldQty > newQty) {
-      // remove last order
+      // remove last orders
+      for (let order in currentOrders.slice(newQty)) {
+        dispatch(removeItem(order))
+      }
       this.setState({
         orders: [...currentOrders.slice(0, newQty)],
       })
@@ -197,4 +204,4 @@ class MenuCard extends Component {
     )
   }
 }
-export default withStyles(styles)(MenuCard)
+export default connect()(withStyles(styles)(MenuCard))
