@@ -10,7 +10,11 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import OrderPanel from './OrderPanel'
 import QuantityControl from './QuantityControl'
+import range from 'lodash/range'
+import cloneDeep from 'lodash/cloneDeep'
+import Course from './Course'
 
+const mobileWidth = 600
 const styles = theme => ({
   '@global': {
     body: {
@@ -52,13 +56,23 @@ const styles = theme => ({
   },
 })
 
-const mobileWidth = 600
+const getCartId = (menuItem, index) => {
+  return `${menuItem.id}-${index}`
+}
+
+const createNewOrder = (menuItem, i) => {
+  return {
+    id: getCartId(menuItem.id, i),
+    menuItem: cloneDeep(menuItem),
+  }
+}
 
 class MenuCard extends Component {
   constructor(props) {
     super(props)
     this.state = {
       qty: 0,
+      orders: [],
       errorText: '',
       expanded: window.innerWidth > mobileWidth,
       width: window.innerWidth,
@@ -92,25 +106,50 @@ class MenuCard extends Component {
   }
 
   subtract = e => {
-    if (this.state.qty > 0) {
-      this.setState({ qty: this.state.qty - 1 })
+    const currentOrderQty = this.state.orders.length
+    if (currentOrderQty > 0) {
+      this.updateOrderQty(currentOrderQty - 1)
     }
   }
 
   add = e => {
     const { limit_count } = this.props.data
-    const desiredQty = this.state.qty + 1
+    const desiredQty = this.state.orders.length + 1
 
     if (desiredQty > limit_count) {
       this.setState({ errorText: `最多可以点 ${limit_count} 份喔亲` })
     } else {
-      this.setState({ qty: desiredQty })
+      this.setState({ errorText: undefined })
+      this.updateOrderQty(desiredQty)
+    }
+  }
+
+  updateOrderQty = newQty => {
+    const { data: menuItem } = this.props
+    const currentOrders = this.state.orders
+    const oldQty = currentOrders.length
+
+    if (newQty > oldQty) {
+      // add new order(s)
+      const addCount = newQty - oldQty
+      const newOrders = range(addCount).map(i => {
+        return createNewOrder(menuItem, oldQty + i)
+      })
+      this.setState({
+        orders: [...currentOrders, ...newOrders],
+      })
+    } else if (oldQty > newQty) {
+      // remove last order
+      this.setState({
+        orders: [...currentOrders.slice(0, newQty)],
+      })
     }
   }
 
   render() {
     const { classes, data } = this.props
-    const { qty } = this.state
+    const { orders } = this.state
+    const qty = orders.length
 
     return (
       <Card className={classes.card}>
@@ -140,7 +179,20 @@ class MenuCard extends Component {
           </Grid>
         </CardContent>
         <Collapse in={qty > 0} timeout="auto">
-          <OrderPanel menuItem={data} qty={qty} />
+          {orders.map((order, orderIndex) => (
+            <Grid container key={orderIndex}>
+              <Grid item xs={12}>
+                {order.menuItem.options.map((option, optIdx) => (
+                  <Course
+                    key={optIdx}
+                    id={order.id}
+                    menuOption={option}
+                    menuItem={order.menuItem}
+                  />
+                ))}
+              </Grid>
+            </Grid>
+          ))}
         </Collapse>
       </Card>
     )

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import Course from './Course'
@@ -31,24 +32,18 @@ export class OrderPanel extends Component {
     }
   }
 
-  componentWillMount() {
-    const { menuItem, qty } = this.props
-
-    const items = range(qty).map(i => {
-      return createNewItem(menuItem, i)
-    })
-
-    this.setState({ items })
+  componentDidMount() {
+    this.updateQuantity(this.props.qty)
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.qty !== prevProps.qty) {
-      this.onQuantityChange(this.props.qty)
+      this.updateQuantity(this.props.qty)
     }
   }
 
   // when quantity is changed from outside
-  onQuantityChange = newQty => {
+  updateQuantity = newQty => {
     const { menuItem } = this.props
 
     const oldQty = this.state.items.length
@@ -92,4 +87,7 @@ export class OrderPanel extends Component {
   }
 }
 
-export default OrderPanel
+const mapStateToProps = state => ({
+  cart: state.cart,
+})
+export default connect(mapStateToProps)(OrderPanel)
