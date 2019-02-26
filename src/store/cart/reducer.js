@@ -1,4 +1,5 @@
 import { CART_ACTIONS } from './action'
+import findIndex from 'lodash/findIndex'
 
 const initialState = {
   items: [],
@@ -32,6 +33,23 @@ export const cartReducer = (state = initialState, { type, payload }) => {
         ...state,
         items,
         total,
+      }
+    case CART_ACTIONS.UPDATE:
+      // const total = 0
+
+      // find the item and replace item with payload
+      const index = findIndex(state.items, { id: payload.id })
+
+      const newItems = [
+        ...state.items.splice(0, index),
+        { ...payload },
+        ...state.items.splice(index + 1),
+      ]
+
+      return {
+        ...state,
+        items: newItems,
+        total: state.total,
       }
     default:
       return state

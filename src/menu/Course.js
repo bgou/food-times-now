@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import CourseSelection from './CourseSelection'
-import { addItem, removeItem } from '../store/cart'
+import { addItem, removeItem, updateItem } from '../store/cart'
 import isNumber from 'lodash/isNumber'
 
 const styles = theme => ({
@@ -23,8 +23,11 @@ class Course extends Component {
 
   constructor(props) {
     super(props)
+    const { menuOption, menuItem } = props
     this.state = {
       itemsSelected: 0,
+      menuOption,
+      menuItem,
     }
     this.handleClick = this.handleClick.bind(this)
   }
@@ -66,10 +69,9 @@ class Course extends Component {
   }
 
   handleSingleSelect(menuItem, choice) {
-    const { dispatch, menuOption, id } = this.props
-    const { choices } = menuOption
+    const { dispatch, id } = this.props
+    const { choices } = this.state.menuOption
 
-    const itemId = id
     const selected = choices.filter(c => c.is_selected)
 
     let differentItem = true
@@ -84,11 +86,12 @@ class Course extends Component {
     if (differentItem) {
       choice.is_selected = true
       this.updateCount(1)
+      dispatch(updateItem(menuItem))
     }
   }
 
   handleClick = (menuItem, choice) => {
-    if (this.props.menuOption.max_choices > 1) {
+    if (this.state.menuOption.max_choices > 1) {
       this.handleMultiSelect(menuItem, choice)
     } else {
       this.handleSingleSelect(menuItem, choice)
@@ -104,6 +107,7 @@ class Course extends Component {
 
   render() {
     const { classes, menuOption, menuItem } = this.props
+    const { menuOption, menuItem } = this.state
     this.updateDefaultSelection(menuOption)
 
     return (
