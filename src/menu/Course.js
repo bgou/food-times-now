@@ -76,7 +76,6 @@ class Course extends Component {
     for (const c of selected) {
       c.is_selected = false
       this.updateCount(-1)
-      dispatch(removeItem({ ...c, itemId }))
       if (c.name === choice.name) {
         differentItem = false
       }
@@ -85,14 +84,6 @@ class Course extends Component {
     if (differentItem) {
       choice.is_selected = true
       this.updateCount(1)
-      dispatch(
-        addItem({
-          itemId,
-          mainItemName: menuItem.name,
-          mainItemImg: menuItem.entree_image,
-          ...choice,
-        })
-      )
     }
   }
 
