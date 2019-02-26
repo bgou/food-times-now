@@ -7,6 +7,6 @@ MenuCard
 - CardContent
   - Item name
   - QuantityControl
-- OrderPanel (1)
+- Collapse
   - Course (n)
     - CourseSelection (n)
