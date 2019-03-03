@@ -72,14 +72,10 @@ const createNewCartItem = (menuItem, i) => {
       default_selection >= 0 &&
       default_selection < choices.length
     ) {
-      console.log(`setting ${default_selection} on option`)
       choices[default_selection].is_selected = true
     }
   })
 
-  console.log(
-    'cartItem.options: ' + JSON.stringify(cartItem.options, null, ' ')
-  )
   return {
     id: getCartId(menuItem.id, i),
     menuItem: cartItem,
@@ -170,7 +166,9 @@ class MenuCard extends Component {
 
   render() {
     const { classes, cart, data } = this.props
-    const { items } = cart
+    const { items: cartItems } = cart
+
+    const items = cartItems.filter(item => item.id === data.id)
     const qty = items.length
 
     return (
@@ -208,7 +206,7 @@ class MenuCard extends Component {
                 {item.options.map((option, optIdx) => (
                   <Course
                     key={optIdx}
-                    id={item.id}
+                    id={item.cartItemId}
                     optionIndex={optIdx}
                     menuItem={item}
                   />
