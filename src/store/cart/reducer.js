@@ -1,5 +1,4 @@
 import { CART_ACTIONS } from './action'
-import findIndex from 'lodash/findIndex'
 import cloneDeep from 'lodash/cloneDeep'
 
 const initialState = {
@@ -66,37 +65,15 @@ export const cartReducer = (state = initialState, { type, payload }) => {
       }
     }
     case CART_ACTIONS.REMOVE: {
-      let total = 0
-      const items = state.items.reduce((result, item) => {
-        if (item.id !== payload.id) {
-          // total += item.price
-          result.push(item)
-        }
-        return result
-      }, [])
+      const items = state.items.filter(
+        item => item.cartItemId !== payload.cartItemId
+      )
+      const total = getTotal(items)
 
       return {
         ...state,
         items,
         total,
-      }
-    }
-    case CART_ACTIONS.UPDATE: {
-      // const total = 0
-
-      // find the item and replace item with payload
-      const index = findIndex(state.items, { id: payload.id })
-
-      const newItems = [
-        ...state.items.splice(0, index),
-        { ...payload },
-        ...state.items.splice(index + 1),
-      ]
-
-      return {
-        ...state,
-        items: newItems,
-        total: state.total,
       }
     }
     default:

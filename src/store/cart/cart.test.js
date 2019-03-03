@@ -8,72 +8,7 @@ it('should return the initial state', () => {
     items: [],
   })
 })
-
-describe('item removal', () => {
-  const itemId = 'abc1123'
-  const name = 'pretty name'
-  const price = 12
-  const existingItems = [
-    {
-      itemId,
-      name,
-      price,
-    },
-  ]
-  const prevState = { total: price, items: existingItems }
-
-  it('should remove item by itemId and name', () => {
-    expect(
-      reducer(prevState, {
-        type: CART_ACTIONS.REMOVE,
-        payload: { itemId, name, price },
-      })
-    ).toEqual({
-      items: [],
-      total: 0,
-    })
-  })
-
-  it('should not remove item if only name matches', () => {
-    const noMatchItemId = itemId + itemId
-    expect(
-      reducer(prevState, {
-        type: CART_ACTIONS.REMOVE,
-        payload: { itemId: noMatchItemId, name, price },
-      })
-    ).toEqual({
-      items: [
-        {
-          itemId,
-          name,
-          price,
-        },
-      ],
-      total: price,
-    })
-  })
-
-  it('should not remove item if only id matches', () => {
-    const noMatchName = name + name
-    expect(
-      reducer(prevState, {
-        type: CART_ACTIONS.REMOVE,
-        payload: { itemId: itemId, name: noMatchName, price },
-      })
-    ).toEqual({
-      items: [
-        {
-          itemId,
-          name,
-          price,
-        },
-      ],
-      total: price,
-    })
-  })
-})
-
-describe('item add', () => {
+describe('cart reducer', () => {
   let price
   let existingItems
   let prevState
@@ -82,7 +17,7 @@ describe('item add', () => {
   let payload
 
   beforeEach(() => {
-    price = 20
+    price = 19.99
     existingItems = [
       {
         cartItemId: 100,
@@ -131,40 +66,63 @@ describe('item add', () => {
       menuOption: newMenuOption,
     }
   })
-  it('should add item if item id is not the same', () => {
-    const newState = reducer(prevState, {
-      type: CART_ACTIONS.ADD,
-      payload,
+
+  describe('item removal', () => {
+    it('should remove item by cartItemId', () => {
+      payload.cartItemId = prevState.items[1].cartItemId
+      const newState = reducer(prevState, {
+        type: CART_ACTIONS.REMOVE,
+        payload,
+      })
+      expect(newState.items.length).toEqual(prevState.items.length - 1)
     })
 
-    expect(newState.items).toEqual([...existingItems, newItem])
+    it('should update total', () => {
+      payload.cartItemId = prevState.items[1].cartItemId
+      const newState = reducer(prevState, {
+        type: CART_ACTIONS.REMOVE,
+        payload,
+      })
+
+      expect(newState.total).toEqual(prevState.total)
+    })
   })
 
-  it('should update item if item id is the same', () => {
-    const updatedPayload = cloneDeep(payload)
-    updatedPayload.cartItemId = 100
+  describe('item add', () => {
+    it('should add item if item id is not the same', () => {
+      const newState = reducer(prevState, {
+        type: CART_ACTIONS.ADD,
+        payload,
+      })
 
-    const newState = reducer(prevState, {
-      type: CART_ACTIONS.ADD,
-      payload: updatedPayload,
+      expect(newState.items).toEqual([...existingItems, newItem])
     })
 
-    const rest = existingItems.slice(1)
-    expect(newState.items).toEqual([
-      {
-        cartItemId: 100,
-        ...newItem,
-      },
-      ...rest,
-    ])
-  })
+    it('should update item if item id is the same', () => {
+      const updatedPayload = cloneDeep(payload)
+      updatedPayload.cartItemId = 100
 
-  it('should sum the total', () => {
-    const newState = reducer(prevState, {
-      type: CART_ACTIONS.ADD,
-      payload,
+      const newState = reducer(prevState, {
+        type: CART_ACTIONS.ADD,
+        payload: updatedPayload,
+      })
+
+      expect(newState.items).toEqual([
+        {
+          cartItemId: 100,
+          ...newItem,
+        },
+        ...existingItems.slice(1),
+      ])
     })
 
-    expect(newState.total).toEqual(70)
+    it('should sum the total', () => {
+      const newState = reducer(prevState, {
+        type: CART_ACTIONS.ADD,
+        payload,
+      })
+
+      expect(newState.total).toEqual(70)
+    })
   })
 })
