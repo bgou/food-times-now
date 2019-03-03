@@ -1,7 +1,6 @@
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import isEmpty from 'lodash/isEmpty'
-import isNumber from 'lodash/isNumber'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -114,32 +113,9 @@ class Course extends Component {
     }
   }
 
-  componentDidMount() {
-    const { menuOption } = this.state
-    this.updateDefaultSelection(menuOption)
-  }
-
-  updateDefaultSelection = menuOption => {
-    const { default_selection } = menuOption
-    if (isNumber(default_selection)) {
-      const { dispatch, id, menuItem, optionIndex } = this.props
-      const selection = menuOption.choices[default_selection]
-      selection.is_selected = true
-
-      dispatch(
-        addItem({
-          cartItemId: id,
-          menuItem,
-          optionIndex,
-          menuOption,
-        })
-      )
-    }
-  }
-
   render() {
-    const { classes } = this.props
-    const { menuOption, menuItem } = this.state
+    const { classes, cart } = this.props
+    const { menuOption } = this.state
 
     return (
       <div className={classes.root}>

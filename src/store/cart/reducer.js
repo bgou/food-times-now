@@ -1,15 +1,22 @@
 import { CART_ACTIONS } from './action'
 import cloneDeep from 'lodash/cloneDeep'
+import isNumber from 'lodash/isNumber'
 
 const initialState = {
   items: [],
   total: 0,
 }
 
-const createCartItem = (cartItemId, existingItem, optionIndex, menuOption) => {
-  const newItem = cloneDeep(existingItem)
+const createCartItem = ({ cartItemId, menuItem, optionIndex, menuOption }) => {
+  const newItem = cloneDeep(menuItem)
   newItem.cartItemId = cartItemId
-  newItem.options[optionIndex] = menuOption
+  if (
+    isNumber(optionIndex) &&
+    optionIndex > -1 &&
+    optionIndex < newItem.options.length
+  ) {
+    newItem.options[optionIndex] = menuOption
+  }
   return newItem
 }
 
@@ -29,7 +36,7 @@ const getTotal = items => {
 export const cartReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case CART_ACTIONS.ADD: {
-      const { cartItemId, menuItem, optionIndex, menuOption } = payload
+      const { cartItemId } = payload
       // check if cartItemId already exists
       const { items: curItems } = state
 
@@ -41,21 +48,16 @@ export const cartReducer = (state = initialState, { type, payload }) => {
 
       if (curItemIndex === -1) {
         // if does not exist, add to items list
-        const newItem = createCartItem(
-          cartItemId,
-          menuItem,
-          optionIndex,
-          menuOption
-        )
+        const newItem = createCartItem({
+          ...payload,
+        })
         items = [...state.items, newItem]
       } else {
         // if already exists in cart, update
-        const updatedItem = createCartItem(
-          cartItemId,
-          curItems[curItemIndex],
-          optionIndex,
-          menuOption
-        )
+        const updatedItem = createCartItem({
+          ...payload,
+          menuItem: curItems[curItemIndex],
+        })
         items = [
           ...curItems.slice(0, curItemIndex),
           updatedItem,

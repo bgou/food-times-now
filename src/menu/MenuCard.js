@@ -8,11 +8,12 @@ import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import cloneDeep from 'lodash/cloneDeep'
+import isNumber from 'lodash/isNumber'
 import range from 'lodash/range'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { removeItem } from '../store/cart/action'
+import { addItem, removeItem } from '../store/cart/action'
 import Course from './Course'
 import QuantityControl from './QuantityControl'
 
@@ -62,10 +63,22 @@ const getCartId = (menuItemId, index) => {
   return `${menuItemId}@${index}`
 }
 
-const createNewOrder = (menuItem, i) => {
+const createNewCartItem = (menuItem, i) => {
+  const cartItem = cloneDeep(menuItem)
+  cartItem.options.forEach(opt => {
+    const { choices, default_selection } = opt
+    if (
+      isNumber(default_selection) &&
+      default_selection >= 0 &&
+      default_selection < choices.length
+    ) {
+      choices[default_selection].is_selected = true
+    }
+  })
+
   return {
     id: getCartId(menuItem.id, i),
-    menuItem: cloneDeep(menuItem),
+    menuItem: cartItem,
   }
 }
 
@@ -74,7 +87,6 @@ class MenuCard extends Component {
     super(props)
     this.state = {
       qty: 0,
-      orders: [],
       errorText: '',
       expanded: window.innerWidth > mobileWidth,
       width: window.innerWidth,
@@ -108,7 +120,7 @@ class MenuCard extends Component {
   }
 
   subtract = e => {
-    const currentOrderQty = this.state.orders.length
+    const currentOrderQty = this.props.cart.items.length
     if (currentOrderQty > 0) {
       this.updateOrderQty(currentOrderQty - 1)
     }
@@ -116,7 +128,7 @@ class MenuCard extends Component {
 
   add = e => {
     const { limit_count } = this.props.data
-    const desiredQty = this.state.orders.length + 1
+    const desiredQty = this.props.cart.items.length + 1
 
     if (desiredQty > limit_count) {
       this.setState({ errorText: `最多可以点 ${limit_count} 份喔亲` })
@@ -127,34 +139,34 @@ class MenuCard extends Component {
   }
 
   updateOrderQty = newQty => {
-    const { data: menuItem, dispatch } = this.props
-    const currentOrders = this.state.orders
+    const { data: menuItem, cart, dispatch } = this.props
+    const currentOrders = cart.items
     const oldQty = currentOrders.length
 
     if (newQty > oldQty) {
-      // add new order(s)
+      // add new item(s) to cart
       const addCount = newQty - oldQty
-      const newOrders = range(addCount).map(i => {
-        const o = createNewOrder(menuItem, oldQty + i)
+      range(addCount).map(i => {
+        const o = createNewCartItem(menuItem, oldQty + i)
+        dispatch(
+          addItem({
+            cartItemId: o.id,
+            menuItem,
+          })
+        )
         return o
-      })
-      this.setState({
-        orders: [...currentOrders, ...newOrders],
       })
     } else if (oldQty > newQty) {
       // remove last orders
-      for (let order in currentOrders.slice(newQty)) {
-        dispatch(removeItem({ cartItemId: order.id }))
+      for (const order of currentOrders.slice(newQty)) {
+        dispatch(removeItem(order))
       }
-      this.setState({
-        orders: [...currentOrders.slice(0, newQty)],
-      })
     }
   }
 
   render() {
-    const { classes, data } = this.props
-    const { orders } = this.state
+    const { classes, cart, data } = this.props
+    const { items: orders } = cart
     const qty = orders.length
 
     return (
@@ -189,12 +201,12 @@ class MenuCard extends Component {
             <Grid container key={orderIndex}>
               <Grid item xs={12}>
                 <Divider />
-                {order.menuItem.options.map((option, optIdx) => (
+                {order.options.map((option, optIdx) => (
                   <Course
                     key={optIdx}
                     id={order.id}
                     optionIndex={optIdx}
-                    menuItem={order.menuItem}
+                    menuItem={order}
                   />
                 ))}
               </Grid>
@@ -205,4 +217,8 @@ class MenuCard extends Component {
     )
   }
 }
-export default connect()(withStyles(styles)(MenuCard))
+
+const mapStateToProps = state => ({
+  cart: state.cart,
+})
+export default connect(mapStateToProps)(withStyles(styles)(MenuCard))
