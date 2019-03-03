@@ -2,18 +2,18 @@ import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText'
 import { withStyles } from '@material-ui/core/styles'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ReceiptIcon from '@material-ui/icons/Receipt'
+import isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import isEmpty from 'lodash/isEmpty'
-import groupBy from 'lodash/groupBy'
+import { removeItem } from '../store/cart'
 
 const styles = theme => ({
   root: {
@@ -30,6 +30,10 @@ export class Cart extends Component {
     cart: PropTypes.object.isRequired,
   }
 
+  deleteHandler = item => {
+    this.props.dispatch(removeItem(item))
+  }
+
   render() {
     const { cart, classes } = this.props
 
@@ -42,7 +46,10 @@ export class Cart extends Component {
         <List>
           {cart.items.map(cartItem => (
             <React.Fragment key={cartItem.cartItemId}>
-              <MainItem item={cartItem} />
+              <MainItem
+                item={cartItem}
+                deleteHandler={this.deleteHandler.bind(this)}
+              />
               {/* <AddOnItems
                 items={groupedItems[itemId]}
                 className={classes.nested}
@@ -55,7 +62,7 @@ export class Cart extends Component {
   }
 }
 
-const MainItem = ({ item }) => {
+const MainItem = ({ item, deleteHandler }) => {
   return (
     <ListItem button>
       <ListItemAvatar>
@@ -63,7 +70,7 @@ const MainItem = ({ item }) => {
       </ListItemAvatar>
       <ListItemText inset primary={item.name} />
       <ListItemSecondaryAction>
-        <IconButton aria-label="Delete">
+        <IconButton aria-label="Delete" onClick={e => deleteHandler(item)}>
           <DeleteIcon />
         </IconButton>
       </ListItemSecondaryAction>
