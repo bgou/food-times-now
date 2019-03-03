@@ -114,7 +114,7 @@ class Course extends Component {
   }
 
   render() {
-    const { classes, cart } = this.props
+    const { classes } = this.props
     const { menuOption } = this.state
 
     return (

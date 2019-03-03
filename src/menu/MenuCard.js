@@ -72,10 +72,14 @@ const createNewCartItem = (menuItem, i) => {
       default_selection >= 0 &&
       default_selection < choices.length
     ) {
+      console.log(`setting ${default_selection} on option`)
       choices[default_selection].is_selected = true
     }
   })
 
+  console.log(
+    'cartItem.options: ' + JSON.stringify(cartItem.options, null, ' ')
+  )
   return {
     id: getCartId(menuItem.id, i),
     menuItem: cartItem,
@@ -151,7 +155,7 @@ class MenuCard extends Component {
         dispatch(
           addItem({
             cartItemId: o.id,
-            menuItem,
+            menuItem: o.menuItem,
           })
         )
         return o
@@ -166,8 +170,8 @@ class MenuCard extends Component {
 
   render() {
     const { classes, cart, data } = this.props
-    const { items: orders } = cart
-    const qty = orders.length
+    const { items } = cart
+    const qty = items.length
 
     return (
       <Card className={classes.card}>
@@ -197,16 +201,16 @@ class MenuCard extends Component {
           </Grid>
         </CardContent>
         <Collapse in={qty > 0} timeout="auto">
-          {orders.map((order, orderIndex) => (
-            <Grid container key={orderIndex}>
+          {items.map((item, itemIndex) => (
+            <Grid container key={itemIndex}>
               <Grid item xs={12}>
                 <Divider />
-                {order.options.map((option, optIdx) => (
+                {item.options.map((option, optIdx) => (
                   <Course
                     key={optIdx}
-                    id={order.id}
+                    id={item.id}
                     optionIndex={optIdx}
-                    menuItem={order}
+                    menuItem={item}
                   />
                 ))}
               </Grid>
