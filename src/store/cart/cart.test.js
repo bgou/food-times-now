@@ -1,5 +1,6 @@
 import reducer from './reducer'
 import { CART_ACTIONS } from './action'
+import cloneDeep from 'lodash/cloneDeep'
 
 it('should return the initial state', () => {
   expect(reducer(undefined, {})).toEqual({
@@ -73,80 +74,45 @@ describe('item removal', () => {
 })
 
 describe('item add', () => {
-  const itemId = 'abc1123'
-  const name = 'some name'
-  const price = 20
-  const existingItems = [
-    {
-      cartItemId: 100,
-      options: [
-        {
-          choices: [
-            {
-              is_selected: true,
-              price: 19.99,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      cartItemId: 101,
-      options: [
-        {
-          choices: [
-            {
-              price: 17.99,
-            },
-          ],
-        },
-      ],
-    },
-  ]
-  const prevState = { total: price, items: existingItems }
+  let price
+  let existingItems
+  let prevState
+  let newMenuOption
+  let newItem
+  let payload
 
-  it('should add item if item id is not the same', () => {
-    const newItemId = 'akdjflk'
-    expect(
-      reducer(prevState, {
-        type: CART_ACTIONS.ADD,
-        payload: { itemId: newItemId, name: name, price },
-      })
-    ).toEqual({
-      items: [
-        ...existingItems,
-        {
-          itemId: newItemId,
-          name,
-          price,
-        },
-      ],
-      total: price * 2,
-    })
-  })
+  beforeEach(() => {
+    price = 20
+    existingItems = [
+      {
+        cartItemId: 100,
+        options: [
+          {
+            choices: [
+              {
+                is_selected: true,
+                price: 19.99,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        cartItemId: 101,
+        options: [
+          {
+            choices: [
+              {
+                price: 17.99,
+              },
+            ],
+          },
+        ],
+      },
+    ]
+    prevState = { total: price, items: existingItems }
 
-  it('should add item if item id is the same but name is not', () => {
-    const newName = 'the glorious meal'
-    expect(
-      reducer(prevState, {
-        type: CART_ACTIONS.ADD,
-        payload: { itemId: itemId, name: newName, price },
-      })
-    ).toEqual({
-      items: [
-        ...existingItems,
-        {
-          itemId,
-          name: newName,
-          price,
-        },
-      ],
-      total: price * 2,
-    })
-  })
-
-  it('should sum the total', () => {
-    const menuOption = {
+    newMenuOption = {
       choices: [
         {
           is_selected: true,
@@ -154,24 +120,51 @@ describe('item add', () => {
         },
       ],
     }
-    const newItem = {
-      options: [menuOption],
+    newItem = {
+      options: [newMenuOption],
     }
 
-    const payload = {
+    payload = {
       cartItemId: 200,
       menuItem: newItem,
       optionIndex: 0,
-      menuOption,
+      menuOption: newMenuOption,
     }
-    expect(
-      reducer(prevState, {
-        type: CART_ACTIONS.ADD,
-        payload,
-      })
-    ).toEqual({
-      items: [...existingItems, newItem],
-      total: 70,
+  })
+  it('should add item if item id is not the same', () => {
+    const newState = reducer(prevState, {
+      type: CART_ACTIONS.ADD,
+      payload,
     })
+
+    expect(newState.items).toEqual([...existingItems, newItem])
+  })
+
+  it('should update item if item id is the same', () => {
+    const updatedPayload = cloneDeep(payload)
+    updatedPayload.cartItemId = 100
+
+    const newState = reducer(prevState, {
+      type: CART_ACTIONS.ADD,
+      payload: updatedPayload,
+    })
+
+    const rest = existingItems.slice(1)
+    expect(newState.items).toEqual([
+      {
+        cartItemId: 100,
+        ...newItem,
+      },
+      ...rest,
+    ])
+  })
+
+  it('should sum the total', () => {
+    const newState = reducer(prevState, {
+      type: CART_ACTIONS.ADD,
+      payload,
+    })
+
+    expect(newState.total).toEqual(70)
   })
 })

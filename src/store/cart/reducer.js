@@ -15,14 +15,10 @@ const createCartItem = (existingItem, optionIndex, menuOption) => {
 
 const getTotal = items => {
   let total = 0
-  // item = {options: [ { choices: { price }}]}
   for (const item of items) {
     const { options } = item
-    // console.log('options: ' + options);
     for (const option of options) {
-      // console.log('choices: ' + JSON.stringify(choices, null, ' '));
       for (const choice of option.choices) {
-        console.log('choice: ' + JSON.stringify(choice, null, ' '))
         total += choice.is_selected ? choice.price || 0 : 0
       }
     }
@@ -55,9 +51,9 @@ export const cartReducer = (state = initialState, { type, payload }) => {
           menuOption
         )
         items = [
-          ...curItems.splice(0, curItemIndex),
+          ...curItems.slice(0, curItemIndex),
           updatedItem,
-          ...curItems.splice(curItemIndex + 1, curItems.length),
+          ...curItems.slice(curItemIndex + 1, curItems.length),
         ]
       }
 
