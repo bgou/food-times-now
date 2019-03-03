@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import MenuCard from '../menu/MenuCard'
-import ShoppingCart from '../menu/ShoppingCart'
+import ShoppingCartLink from '../menu/ShoppingCartLink'
 import order_response from '../mock/order_response'
 
 const styles = theme => ({
@@ -76,7 +76,7 @@ const DailyMenu = ({ classes }) => {
           ))}
         </Grid>
       </div>
-      <ShoppingCart />
+      <ShoppingCartLink />
     </main>
   )
 }

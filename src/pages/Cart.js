@@ -14,10 +14,11 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { removeItem } from '../store/cart'
+import Paper from '@material-ui/core/Paper'
 
 const styles = theme => ({
   root: {
-    margin: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+    margin: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px`,
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,
@@ -54,7 +55,7 @@ export class Cart extends Component {
     }
 
     return (
-      <div>
+      <Paper className={classes.root}>
         <List>
           {cart.items.map(cartItem => (
             <React.Fragment key={cartItem.cartItemId}>
@@ -69,7 +70,7 @@ export class Cart extends Component {
             </React.Fragment>
           ))}
         </List>
-      </div>
+      </Paper>
     )
   }
 }
@@ -97,11 +98,11 @@ const AddOnItems = ({ className, items }) => {
         <ReceiptIcon />
       </ListItemIcon>
       <ListItemText inset primary={item.name} secondary={item.price} />
-      <ListItemSecondaryAction>
+      {/* <ListItemSecondaryAction>
         <IconButton aria-label="Delete">
           <DeleteIcon />
         </IconButton>
-      </ListItemSecondaryAction>
+      </ListItemSecondaryAction> */}
     </ListItem>
   ))
 }

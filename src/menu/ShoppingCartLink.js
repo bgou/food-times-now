@@ -5,6 +5,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const styles = theme => ({
   absolute: {
@@ -14,7 +15,7 @@ const styles = theme => ({
   },
 })
 
-export class ShoppingCart extends Component {
+export class ShoppingCartLink extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
   }
@@ -24,11 +25,13 @@ export class ShoppingCart extends Component {
 
     const count = cart.items.length
     return (
-      <Fab color="primary" className={classes.absolute}>
-        <Badge color="secondary" badgeContent={count}>
-          <ShoppingCartIcon />
-        </Badge>
-      </Fab>
+      <Link to="/checkout">
+        <Fab color="primary" className={classes.absolute}>
+          <Badge color="secondary" badgeContent={count}>
+            <ShoppingCartIcon />
+          </Badge>
+        </Fab>
+      </Link>
     )
   }
 }
@@ -37,4 +40,4 @@ const mapStateToProps = state => ({
   cart: state.cart,
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(ShoppingCart))
+export default connect(mapStateToProps)(withStyles(styles)(ShoppingCartLink))

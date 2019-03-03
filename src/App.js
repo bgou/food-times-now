@@ -1,15 +1,21 @@
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {
   createMuiTheme,
-  withStyles,
   MuiThemeProvider,
+  withStyles,
 } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import React from 'react'
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom'
 import Footer from './layout/Footer'
 import TopBar from './layout/TopBar'
+import CheckoutPage from './pages/CheckoutPage'
 import DailyMenu from './pages/DailyMenu'
-import Cart from './pages/Cart'
 
 const styles = theme => ({
   '@global': {
@@ -38,11 +44,16 @@ function App() {
     <React.Fragment>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        {/* <Route> */}
-        <Cart />
-        <TopBar />
-        <DailyMenu />
-        {/* </Route> */}
+        <Router>
+          <div>
+            <TopBar />
+            <Switch>
+              <Route path="/" exact component={DailyMenu} />
+              <Route path="/checkout" component={CheckoutPage} />
+              <Route render={() => <Redirect to="/" />} />
+            </Switch>
+          </div>
+        </Router>
         <Footer />
       </MuiThemeProvider>
     </React.Fragment>
