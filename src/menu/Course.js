@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import CourseSelection from './CourseSelection'
 import { addItem, removeItem, updateItem } from '../store/cart'
 import isNumber from 'lodash/isNumber'
+import isEmpty from 'lodash/isEmpty'
 
 const styles = theme => ({
   root: {
@@ -31,6 +32,7 @@ class Course extends Component {
       menuItem,
     }
     this.handleClick = this.handleClick.bind(this)
+    this.handleSingleSelect = this.handleSingleSelect.bind(this)
   }
 
   updateCount(count) {
@@ -69,33 +71,41 @@ class Course extends Component {
     }
   }
 
-  handleSingleSelect(menuItem, choice) {
-    const { dispatch, id } = this.props
-    const { choices } = this.state.menuOption
+  handleSingleSelect(choiceIndex) {
+    const { dispatch, id, menuItem, optionIndex } = this.props
+    const { menuOption } = this.state
+    const { choices } = menuOption
 
     const selected = choices.filter(c => c.is_selected)
 
-    let differentItem = true
-    for (const c of selected) {
-      c.is_selected = false
-      this.updateCount(-1)
-      if (c.name === choice.name) {
-        differentItem = false
+    if (!isEmpty(selected)) {
+      // remove all currently selected items
+      for (const c of selected) {
+        c.is_selected = false
       }
     }
 
-    if (differentItem) {
-      choice.is_selected = true
-      this.updateCount(1)
-      dispatch(updateItem(menuItem))
-    }
+    choices[choiceIndex].is_selected = true
+    this.updateCount(1)
+
+    console.log(
+      `optionIndex: ${optionIndex}, choiceIndex: ${choiceIndex}, id: ${id}`
+    )
+    dispatch(
+      addItem({
+        cartItemId: id,
+        menuItem,
+        optionIndex,
+        menuOption,
+      })
+    )
   }
 
-  handleClick = (menuItem, choice) => {
+  handleClick = choiceIndex => {
     if (this.state.menuOption.max_choices > 1) {
-      this.handleMultiSelect(menuItem, choice)
+      this.handleMultiSelect(choiceIndex)
     } else {
-      this.handleSingleSelect(menuItem, choice)
+      this.handleSingleSelect(choiceIndex)
     }
   }
 
@@ -141,7 +151,7 @@ class Course extends Component {
             key={idx}
             menuOption={menuOption}
             choice={choice}
-            handleClick={e => this.handleClick(menuItem, choice)}
+            handleClick={e => this.handleClick(idx)}
           />
         ))}
       </div>

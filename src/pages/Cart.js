@@ -53,8 +53,6 @@ export class Cart extends Component {
       return null
     }
 
-    const selectedChoices = this.getChoices(cart.items[0])
-
     return (
       <div>
         <List>
@@ -64,7 +62,10 @@ export class Cart extends Component {
                 item={cartItem}
                 deleteHandler={this.deleteHandler.bind(this)}
               />
-              <AddOnItems items={selectedChoices} className={classes.nested} />
+              <AddOnItems
+                items={this.getChoices(cartItem)}
+                className={classes.nested}
+              />
             </React.Fragment>
           ))}
         </List>
