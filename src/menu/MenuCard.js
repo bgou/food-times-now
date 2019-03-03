@@ -3,6 +3,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Collapse from '@material-ui/core/Collapse'
+import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
@@ -11,7 +12,7 @@ import range from 'lodash/range'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addItem, removeItem } from '../store/cart/action'
+import { removeItem } from '../store/cart/action'
 import Course from './Course'
 import QuantityControl from './QuantityControl'
 
@@ -187,6 +188,7 @@ class MenuCard extends Component {
           {orders.map((order, orderIndex) => (
             <Grid container key={orderIndex}>
               <Grid item xs={12}>
+                <Divider />
                 {order.menuItem.options.map((option, optIdx) => (
                   <Course
                     key={optIdx}

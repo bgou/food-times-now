@@ -1,12 +1,12 @@
+import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import isEmpty from 'lodash/isEmpty'
+import isNumber from 'lodash/isNumber'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import Typography from '@material-ui/core/Typography'
-import { withStyles } from '@material-ui/core/styles'
+import { addItem } from '../store/cart'
 import CourseSelection from './CourseSelection'
-import { addItem, removeItem, updateItem } from '../store/cart'
-import isNumber from 'lodash/isNumber'
-import isEmpty from 'lodash/isEmpty'
 
 const styles = theme => ({
   root: {
@@ -35,40 +35,47 @@ class Course extends Component {
     this.handleSingleSelect = this.handleSingleSelect.bind(this)
   }
 
-  updateCount(count) {
+  incrementCount(count) {
     const { itemsSelected } = this.state
     this.setState({ itemsSelected: itemsSelected + count })
   }
 
-  handleMultiSelect(menuItem, choice) {
-    const { dispatch, menuOption, id } = this.props
-    const { max_choices } = menuOption
-    const itemId = id
+  handleMultiSelect(choiceIndex) {
+    const { dispatch, id, menuItem, optionIndex } = this.props
+    const { menuOption } = this.state
+    const { max_choices, choices } = menuOption
+
+    const choice = choices[choiceIndex]
 
     if (!choice.is_selected) {
-      if (this.state.itemsSelected + 1 > max_choices) {
+      // clicking on an unselected option
+      if (this.state.itemsSelected >= max_choices) {
+        // if maximum items have been selected
         this.setState({
           error: true,
           errorText: `最多只可以选择 ${max_choices} 种哦亲!`,
         })
         return
       }
+
       choice.is_selected = true
-      this.updateCount(1)
-      dispatch(
-        addItem({
-          itemId,
-          mainItemName: menuItem.name,
-          mainItemImg: menuItem.entree_image,
-          ...choice,
-        })
-      )
+      this.incrementCount(1)
     } else {
+      // clicking on a selected option
       this.setState({ error: false, errorText: null })
       choice.is_selected = false
-      this.updateCount(-1)
-      dispatch(removeItem({ ...choice, itemId }))
+      this.incrementCount(-1)
     }
+
+    // calling addItem will update the menuItem's option choices
+    dispatch(
+      addItem({
+        cartItemId: id,
+        menuItem,
+        optionIndex,
+        menuOption,
+      })
+    )
   }
 
   handleSingleSelect(choiceIndex) {
@@ -82,15 +89,13 @@ class Course extends Component {
       // remove all currently selected items
       for (const c of selected) {
         c.is_selected = false
+        this.incrementCount(-1)
       }
     }
 
     choices[choiceIndex].is_selected = true
-    this.updateCount(1)
+    this.incrementCount(1)
 
-    console.log(
-      `optionIndex: ${optionIndex}, choiceIndex: ${choiceIndex}, id: ${id}`
-    )
     dispatch(
       addItem({
         cartItemId: id,
