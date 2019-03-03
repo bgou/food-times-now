@@ -17,13 +17,14 @@ class Course extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
-    menuOption: PropTypes.object.isRequired,
     menuItem: PropTypes.object.isRequired,
+    optionIndex: PropTypes.number.isRequired,
   }
 
   constructor(props) {
     super(props)
-    const { menuOption, menuItem } = props
+    const { optionIndex, menuItem } = props
+    const menuOption = menuItem.options[optionIndex]
     this.state = {
       itemsSelected: 0,
       menuOption,
@@ -101,12 +102,23 @@ class Course extends Component {
   updateDefaultSelection = menuOption => {
     const { default_selection } = menuOption
     if (isNumber(default_selection)) {
-      menuOption.choices[default_selection].is_selected = true
+      const { dispatch, id, menuItem, optionIndex } = this.props
+      const selection = menuOption.choices[default_selection]
+      selection.is_selected = true
+
+      dispatch(
+        addItem({
+          cartItemId: id,
+          menuItem,
+          optionIndex,
+          menuOption,
+        })
+      )
     }
   }
 
   render() {
-    const { classes, menuOption, menuItem } = this.props
+    const { classes } = this.props
     const { menuOption, menuItem } = this.state
     this.updateDefaultSelection(menuOption)
 

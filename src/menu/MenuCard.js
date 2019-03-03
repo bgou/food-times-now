@@ -135,7 +135,6 @@ class MenuCard extends Component {
       const addCount = newQty - oldQty
       const newOrders = range(addCount).map(i => {
         const o = createNewOrder(menuItem, oldQty + i)
-        dispatch(addItem(o))
         return o
       })
       this.setState({
@@ -192,7 +191,7 @@ class MenuCard extends Component {
                   <Course
                     key={optIdx}
                     id={order.id}
-                    menuOption={option}
+                    optionIndex={optIdx}
                     menuItem={order.menuItem}
                   />
                 ))}

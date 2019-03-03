@@ -78,9 +78,29 @@ describe('item add', () => {
   const price = 20
   const existingItems = [
     {
-      itemId,
-      name,
-      price,
+      cartItemId: 100,
+      options: [
+        {
+          choices: [
+            {
+              is_selected: true,
+              price: 19.99,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      cartItemId: 101,
+      options: [
+        {
+          choices: [
+            {
+              price: 17.99,
+            },
+          ],
+        },
+      ],
     },
   ]
   const prevState = { total: price, items: existingItems }
@@ -126,23 +146,32 @@ describe('item add', () => {
   })
 
   it('should sum the total', () => {
-    const newItemId = 'akdjflk'
-    const newPrice = 18.27
+    const menuOption = {
+      choices: [
+        {
+          is_selected: true,
+          price: 50.01,
+        },
+      ],
+    }
+    const newItem = {
+      options: [menuOption],
+    }
+
+    const payload = {
+      cartItemId: 200,
+      menuItem: newItem,
+      optionIndex: 0,
+      menuOption,
+    }
     expect(
       reducer(prevState, {
         type: CART_ACTIONS.ADD,
-        payload: { itemId: newItemId, name: name, price: newPrice },
+        payload,
       })
     ).toEqual({
-      items: [
-        ...existingItems,
-        {
-          itemId: newItemId,
-          name,
-          price: newPrice,
-        },
-      ],
-      total: price + newPrice,
+      items: [...existingItems, newItem],
+      total: 70,
     })
   })
 })
