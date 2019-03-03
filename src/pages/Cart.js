@@ -34,12 +34,26 @@ export class Cart extends Component {
     this.props.dispatch(removeItem(item))
   }
 
+  getChoices = menuItem => {
+    const result = []
+    for (const opt of menuItem.options) {
+      for (const choice of opt.choices) {
+        if (choice.is_selected) {
+          result.push(choice)
+        }
+      }
+    }
+    return result
+  }
+
   render() {
     const { cart, classes } = this.props
 
     if (isEmpty(cart.items)) {
       return null
     }
+
+    const selectedChoices = this.getChoices(cart.items[0])
 
     return (
       <div>
@@ -50,10 +64,7 @@ export class Cart extends Component {
                 item={cartItem}
                 deleteHandler={this.deleteHandler.bind(this)}
               />
-              {/* <AddOnItems
-                items={groupedItems[itemId]}
-                className={classes.nested}
-              /> */}
+              <AddOnItems items={selectedChoices} className={classes.nested} />
             </React.Fragment>
           ))}
         </List>
@@ -79,8 +90,8 @@ const MainItem = ({ item, deleteHandler }) => {
 }
 
 const AddOnItems = ({ className, items }) => {
-  return items.map(item => (
-    <ListItem button className={className} key={item.name}>
+  return items.map((item, idx) => (
+    <ListItem button className={className} key={idx}>
       <ListItemIcon>
         <ReceiptIcon />
       </ListItemIcon>
