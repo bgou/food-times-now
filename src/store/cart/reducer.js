@@ -6,8 +6,9 @@ const initialState = {
   total: 0,
 }
 
-const createCartItem = (existingItem, optionIndex, menuOption) => {
+const createCartItem = (cartItemId, existingItem, optionIndex, menuOption) => {
   const newItem = cloneDeep(existingItem)
+  newItem.cartItemId = cartItemId
   newItem.options[optionIndex] = menuOption
   return newItem
 }
@@ -40,11 +41,17 @@ export const cartReducer = (state = initialState, { type, payload }) => {
 
       if (curItemIndex === -1) {
         // if does not exist, add to items list
-        const newItem = createCartItem(menuItem, optionIndex, menuOption)
+        const newItem = createCartItem(
+          cartItemId,
+          menuItem,
+          optionIndex,
+          menuOption
+        )
         items = [...state.items, newItem]
       } else {
         // if already exists in cart, update
         const updatedItem = createCartItem(
+          cartItemId,
           curItems[curItemIndex],
           optionIndex,
           menuOption

@@ -32,22 +32,21 @@ export class Cart extends Component {
 
   render() {
     const { cart, classes } = this.props
-    const groupedItems = groupBy(cart.items, 'itemId')
 
-    if (isEmpty(groupedItems)) {
+    if (isEmpty(cart.items)) {
       return null
     }
 
     return (
       <div>
         <List>
-          {Object.keys(groupedItems).map(itemId => (
-            <React.Fragment key={itemId}>
-              <MainItem items={groupedItems[itemId]} />
-              <AddOnItems
+          {cart.items.map(cartItem => (
+            <React.Fragment key={cartItem.cartItemId}>
+              <MainItem item={cartItem} />
+              {/* <AddOnItems
                 items={groupedItems[itemId]}
                 className={classes.nested}
-              />
+              /> */}
             </React.Fragment>
           ))}
         </List>
@@ -56,14 +55,13 @@ export class Cart extends Component {
   }
 }
 
-const MainItem = ({ items }) => {
-  const item = items[0]
+const MainItem = ({ item }) => {
   return (
     <ListItem button>
       <ListItemAvatar>
-        <Avatar src={item.mainItemImg} />
+        <Avatar src={item.entree_image} />
       </ListItemAvatar>
-      <ListItemText inset primary={item.mainItemName} />
+      <ListItemText inset primary={item.name} />
       <ListItemSecondaryAction>
         <IconButton aria-label="Delete">
           <DeleteIcon />

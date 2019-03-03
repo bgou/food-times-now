@@ -99,6 +99,11 @@ class Course extends Component {
     }
   }
 
+  componentDidMount() {
+    const { menuOption } = this.state
+    this.updateDefaultSelection(menuOption)
+  }
+
   updateDefaultSelection = menuOption => {
     const { default_selection } = menuOption
     if (isNumber(default_selection)) {
@@ -120,7 +125,6 @@ class Course extends Component {
   render() {
     const { classes } = this.props
     const { menuOption, menuItem } = this.state
-    this.updateDefaultSelection(menuOption)
 
     return (
       <div className={classes.root}>

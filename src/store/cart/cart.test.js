@@ -14,6 +14,7 @@ describe('cart reducer', () => {
   let prevState
   let newMenuOption
   let newItem
+  let newCartItemId
   let payload
 
   beforeEach(() => {
@@ -47,6 +48,7 @@ describe('cart reducer', () => {
     ]
     prevState = { total: price, items: existingItems }
 
+    newCartItemId = 200
     newMenuOption = {
       choices: [
         {
@@ -60,7 +62,7 @@ describe('cart reducer', () => {
     }
 
     payload = {
-      cartItemId: 200,
+      cartItemId: newCartItemId,
       menuItem: newItem,
       optionIndex: 0,
       menuOption: newMenuOption,
@@ -95,7 +97,22 @@ describe('cart reducer', () => {
         payload,
       })
 
-      expect(newState.items).toEqual([...existingItems, newItem])
+      expect(newState.items).toEqual([
+        ...existingItems,
+        {
+          cartItemId: newCartItemId,
+          ...newItem,
+        },
+      ])
+    })
+
+    it('should add item with the new cartItemId', () => {
+      const newState = reducer(prevState, {
+        type: CART_ACTIONS.ADD,
+        payload,
+      })
+
+      expect(newState.items[newState.items.length - 1].cartItemId).toEqual(200)
     })
 
     it('should update item if item id is the same', () => {

@@ -143,7 +143,7 @@ class MenuCard extends Component {
     } else if (oldQty > newQty) {
       // remove last orders
       for (let order in currentOrders.slice(newQty)) {
-        dispatch(removeItem(order))
+        dispatch(removeItem({ cartItemId: order.id }))
       }
       this.setState({
         orders: [...currentOrders.slice(0, newQty)],
