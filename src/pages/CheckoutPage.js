@@ -1,5 +1,5 @@
 import React from 'react'
-import Cart from './Cart'
+import Cart from '../checkout/Cart'
 import Delivery from '../checkout/Delivery'
 import Payment from '../checkout/Payment'
 import { withStyles } from '@material-ui/core/styles'
