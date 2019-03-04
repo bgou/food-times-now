@@ -1,4 +1,4 @@
-import { Paper } from '@material-ui/core'
+import Paper from '@material-ui/core/Paper'
 import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -12,9 +12,6 @@ const styles = theme => ({
   root: {
     margin: `${theme.spacing.unit * 2}px 0`,
     padding: `${theme.spacing.unit * 2}px`,
-  },
-  select: {
-    width: '100%',
   },
   formControl: {
     marginTop: `${theme.spacing.unit * 2}px`,
@@ -52,7 +49,6 @@ export class Delivery extends Component {
           <Select
             value={selectedLocation}
             className={classes.select}
-            // classes={{ select: classes.select }}
             onChange={this.handleChange}
             input={<Input name="selectedLocation" id="selectedLocation" />}
           >
