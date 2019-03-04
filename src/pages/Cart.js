@@ -6,6 +6,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText'
+import Paper from '@material-ui/core/Paper'
 import { withStyles } from '@material-ui/core/styles'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ReceiptIcon from '@material-ui/icons/Receipt'
@@ -14,7 +15,6 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { removeItem } from '../store/cart'
-import Paper from '@material-ui/core/Paper'
 
 const styles = theme => ({
   root: {
@@ -55,7 +55,7 @@ export class Cart extends Component {
     }
 
     return (
-      <Paper className={classes.root}>
+      <Paper>
         <List>
           {cart.items.map(cartItem => (
             <React.Fragment key={cartItem.cartItemId}>

@@ -1,11 +1,13 @@
 import { CART_ACTIONS } from './action'
 import cloneDeep from 'lodash/cloneDeep'
 import isNumber from 'lodash/isNumber'
+import mockCart from '../../mock/cart'
+// const initialState = {
+//   items: [],
+//   total: 0,
+// }
 
-const initialState = {
-  items: [],
-  total: 0,
-}
+const initialState = mockCart
 
 const createCartItem = ({ cartItemId, menuItem, optionIndex, menuOption }) => {
   const newItem = cloneDeep(menuItem)
@@ -67,11 +69,14 @@ export const cartReducer = (state = initialState, { type, payload }) => {
 
       const total = getTotal(items)
 
-      return {
+      const res = {
         ...state,
         items,
         total,
       }
+
+      console.log(JSON.stringify(res))
+      return res
     }
     case CART_ACTIONS.REMOVE: {
       const items = state.items.filter(

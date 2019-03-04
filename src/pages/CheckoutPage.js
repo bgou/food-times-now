@@ -1,8 +1,23 @@
 import React from 'react'
 import Cart from './Cart'
+import Delivery from '../checkout/Delivery'
+import Payment from '../checkout/Payment'
+import { withStyles } from '@material-ui/core/styles'
 
-const CheckoutPage = () => {
-  return <Cart />
+const styles = theme => ({
+  root: {
+    margin: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px`,
+  },
+})
+
+const CheckoutPage = ({ classes }) => {
+  return (
+    <div className={classes.root}>
+      <Cart />
+      <Delivery />
+      <Payment />
+    </div>
+  )
 }
 
-export default CheckoutPage
+export default withStyles(styles)(CheckoutPage)
